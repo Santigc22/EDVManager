@@ -2,8 +2,9 @@ require('dotenv').config();
 const express = require('express');
 const cors = require('cors');
 const permisosRoutes = require("./routes/permisos");
-const rolesRoutes = require("./routes/roles")
-const usuariosRoutes = require("./routes/usuarios")
+const rolesRoutes = require("./routes/roles");
+const usuariosRoutes = require("./routes/usuarios");
+const loginRoutes = require("./routes/login");
 
 const app = express();
 const PORT = process.env.PORT || 3000;
@@ -14,6 +15,8 @@ app.use(express.json());
 app.get('/', (req, res) => {
     res.send("🚀 API de Inventario funcionando!");
 });
+
+app.use("/login", loginRoutes);
 
 app.use("/usuarios", usuariosRoutes);
 
