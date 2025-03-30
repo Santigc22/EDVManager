@@ -170,4 +170,38 @@ router.get("/", async (req, res) => {
     }
 });
 
+router.get("/:id", async (req, res) => {
+    const { id } = req.params;
+
+    try {
+        const { rows: usuarios } = await pool.query(
+            `SELECT id, nombre, username, email, identificacion, estado, fecha_creacion, fecha_modificacion
+             FROM usuarios WHERE id = $1`, 
+            [id]
+        );
+
+        if (usuarios.length === 0) {
+            return res.status(404).json({ message: "Usuario no encontrado" });
+        }
+
+        const { rows: roles } = await pool.query(
+            `SELECT r.nombre 
+             FROM roles r
+             JOIN usuarios_roles ur ON r.id = ur.rol_id
+             WHERE ur.usuario_id = $1`,
+            [id]
+        );
+
+        const usuario = {
+            ...usuarios[0],
+            roles: roles.map((r) => r.nombre)
+        };
+
+        res.json(usuario);
+    } catch (error) {
+        console.error(error);
+        res.status(500).json({ message: "Error obteniendo el usuario" });
+    }
+});
+
 module.exports = router;
