@@ -1,8 +1,10 @@
 const express = require('express');
 const router = express.Router();
 const pool = require('../config/db');
+const verificarToken = require("../security/authMiddleware");
+const verificarPermiso = require("../security/permisosMiddleware");
 
-router.post('/', async (req, res) => {
+router.post('/', verificarToken, verificarPermiso("crear_roles"), async (req, res) => {
     const { nombre, permisos } = req.body;
 
     try {
@@ -26,7 +28,7 @@ router.post('/', async (req, res) => {
     }
 });
 
-router.get('/', async (req, res) => {
+router.get('/', verificarToken, verificarPermiso("ver_roles"), async (req, res) => {
     try {
         const query = `
             SELECT r.id, r.nombre AS rol, COALESCE(json_agg(p.nombre) FILTER (WHERE p.nombre IS NOT NULL), '[]') AS permisos
@@ -43,7 +45,7 @@ router.get('/', async (req, res) => {
     }
 });
 
-router.patch('/:id', async (req, res) => {
+router.patch('/:id', verificarToken, verificarPermiso("modificar_roles"), async (req, res) => {
     const { id } = req.params; 
     const { nombre, permisos } = req.body; 
 
@@ -71,7 +73,7 @@ router.patch('/:id', async (req, res) => {
     }
 });
 
-router.delete('/:id', async (req, res) => {
+router.delete('/:id', verificarToken, verificarPermiso("eliminar_roles"), async (req, res) => {
     const { id } = req.params;
 
     try {
