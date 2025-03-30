@@ -96,4 +96,26 @@ router.patch("/:id", async (req, res) => {
     }
 });
 
+router.get("/", async (req, res) => {
+    try {
+        const query = `
+            SELECT 
+                u.id, u.nombre, u.username, u.email, u.identificacion, u.estado, u.fecha_creacion, u.fecha_modificacion,
+                COALESCE(json_agg(json_build_object('id', r.id, 'nombre', r.nombre)) FILTER (WHERE r.id IS NOT NULL), '[]') AS roles
+            FROM usuarios u
+            LEFT JOIN usuarios_roles ur ON u.id = ur.usuario_id
+            LEFT JOIN roles r ON ur.rol_id = r.id
+            GROUP BY u.id
+            ORDER BY u.id;
+        `;
+
+        const { rows } = await pool.query(query);
+
+        res.json(rows);
+    } catch (error) {
+        console.error(error);
+        res.status(500).json({ message: "Error obteniendo los usuarios" });
+    }
+});
+
 module.exports = router;

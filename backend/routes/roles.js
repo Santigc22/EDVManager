@@ -75,16 +75,13 @@ router.delete('/:id', async (req, res) => {
     const { id } = req.params;
 
     try {
-        // Verificar si el rol existe
         const rolExistente = await pool.query('SELECT * FROM roles WHERE id = $1', [id]);
         if (rolExistente.rows.length === 0) {
             return res.status(404).json({ error: 'El rol no existe' });
         }
 
-        // Eliminar los permisos asociados a ese rol
         await pool.query('DELETE FROM roles_permisos WHERE rol_id = $1', [id]);
 
-        // Eliminar el rol
         await pool.query('DELETE FROM roles WHERE id = $1', [id]);
 
         res.json({ message: 'Rol eliminado correctamente' });
