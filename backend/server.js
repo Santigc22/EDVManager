@@ -25,5 +25,5 @@ app.use("/roles", rolesRoutes);
 app.use("/permisos", permisosRoutes);
 
 app.listen(PORT, () => {
-    console.log(`🔥 Servidor corriendo en http://localhost:${PORT}`);
+    console.log(`🔥 Servidor corriendo`);
 });
