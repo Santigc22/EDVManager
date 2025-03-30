@@ -1,0 +1,45 @@
+openapi: 3.0.0
+info:
+  title: API de Permisos
+  description: API para gestionar los permisos del sistema.
+  version: 1.0.0
+servers:
+  - url: http://localhost:3000
+    description: Servidor local
+paths:
+  /permisos:
+    get:
+      summary: Obtener todos los permisos
+      description: Devuelve una lista de todos los permisos registrados en la base de datos.
+      security:
+        - BearerAuth: []
+      responses:
+        "200":
+          description: Lista de permisos obtenida correctamente.
+          content:
+            application/json:
+              schema:
+                type: array
+                items:
+                  type: object
+                  properties:
+                    id:
+                      type: integer
+                      example: 1
+                    nombre:
+                      type: string
+                      example: "ADMIN"
+        "401":
+          description: No autorizado, token no válido o faltante.
+        "403":
+          description: Acceso prohibido, el usuario no tiene permisos para ver esta información.
+        "500":
+          description: Error interno del servidor.
+
+components:
+  securitySchemes:
+    BearerAuth:
+      type: http
+      scheme: bearer
+      bearerFormat: JWT
+      

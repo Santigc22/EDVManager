@@ -1,0 +1,362 @@
+openapi: 3.0.0
+info:
+  title: API de Usuarios
+  description: API para la gestión de usuarios, que incluye creación, actualización, listado y consulta por ID.
+  version: 1.0.0
+servers:
+  - url: http://localhost:3000
+    description: Servidor local
+
+paths:
+  /usuarios:
+    post:
+      summary: Crear un nuevo usuario
+      description: Registra un nuevo usuario en el sistema, asignándole roles si se especifica.
+      security:
+        - bearerAuth: []
+      requestBody:
+        description: Objeto JSON con la información del usuario.
+        required: true
+        content:
+          application/json:
+            schema:
+              type: object
+              required:
+                - nombre
+                - username
+                - contrasenia
+                - email
+                - identificacion
+              properties:
+                nombre:
+                  type: string
+                  example: "Juan Perez"
+                username:
+                  type: string
+                  example: "juanp"
+                contrasenia:
+                  type: string
+                  example: "contraseñaSegura123"
+                email:
+                  type: string
+                  format: email
+                  example: "juan@example.com"
+                identificacion:
+                  type: string
+                  example: "123456789"
+                roles:
+                  type: array
+                  items:
+                    type: integer
+                  example: [1, 2]
+      responses:
+        "201":
+          description: Usuario registrado con éxito.
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  mensaje:
+                    type: string
+                    example: "Usuario registrado con éxito."
+        "400":
+          description: Error de validación, faltan campos obligatorios.
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  mensaje:
+                    type: string
+                    example: "Todos los campos son obligatorios."
+        "500":
+          description: Error interno del servidor.
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  mensaje:
+                    type: string
+                    example: "Error al registrar usuario."
+
+    get:
+      summary: Listar usuarios
+      description: Retorna una lista de usuarios con soporte para filtros, paginación y ordenamiento.
+      security:
+        - bearerAuth: []
+      parameters:
+        - name: resultados_por_pagina
+          in: query
+          description: Número de resultados por página.
+          schema:
+            type: integer
+            default: 10
+        - name: pagina
+          in: query
+          description: Número de la página.
+          schema:
+            type: integer
+            default: 1
+        - name: nombre
+          in: query
+          description: Filtro por nombre (búsqueda parcial).
+          schema:
+            type: string
+        - name: username
+          in: query
+          description: Filtro por username (búsqueda parcial).
+          schema:
+            type: string
+        - name: email
+          in: query
+          description: Filtro por email (búsqueda parcial).
+          schema:
+            type: string
+        - name: identificacion
+          in: query
+          description: Filtro por identificación (búsqueda parcial).
+          schema:
+            type: string
+        - name: ordenar_por
+          in: query
+          description: Campo por el cual ordenar los resultados.
+          schema:
+            type: string
+            enum: [nombre, fecha_creacion, fecha_modificacion, id]
+            default: id
+        - name: orden
+          in: query
+          description: Tipo de ordenamiento.
+          schema:
+            type: string
+            enum: [ASC, DESC]
+            default: ASC
+      responses:
+        "200":
+          description: Lista de usuarios obtenida exitosamente.
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  pagina_actual:
+                    type: integer
+                    example: 1
+                  resultados_por_pagina:
+                    type: integer
+                    example: 10
+                  total_resultados:
+                    type: integer
+                    example: 100
+                  total_paginas:
+                    type: integer
+                    example: 10
+                  usuarios:
+                    type: array
+                    items:
+                      type: object
+                      properties:
+                        id:
+                          type: integer
+                          example: 1
+                        nombre:
+                          type: string
+                          example: "Juan Perez"
+                        username:
+                          type: string
+                          example: "juanp"
+                        email:
+                          type: string
+                          format: email
+                          example: "juan@example.com"
+                        identificacion:
+                          type: string
+                          example: "123456789"
+                        estado:
+                          type: string
+                          example: "activo"
+                        fecha_creacion:
+                          type: string
+                          format: date-time
+                          example: "2025-01-01T00:00:00Z"
+                        fecha_modificacion:
+                          type: string
+                          format: date-time
+                          example: "2025-01-02T00:00:00Z"
+                        roles:
+                          type: array
+                          items:
+                            type: object
+                            properties:
+                              id:
+                                type: integer
+                                example: 1
+                              nombre:
+                                type: string
+                                example: "Administrador"
+        "500":
+          description: Error interno del servidor.
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  message:
+                    type: string
+                    example: "Error obteniendo los usuarios."
+
+  /usuarios/{id}:
+    get:
+      summary: Obtener detalles de un usuario
+      description: Retorna la información completa de un usuario específico, incluyendo sus roles.
+      security:
+        - bearerAuth: []
+      parameters:
+        - name: id
+          in: path
+          required: true
+          description: ID del usuario.
+          schema:
+            type: integer
+      responses:
+        "200":
+          description: Usuario encontrado y retornado con éxito.
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  id:
+                    type: integer
+                    example: 1
+                  nombre:
+                    type: string
+                    example: "Juan Perez"
+                  username:
+                    type: string
+                    example: "juanp"
+                  email:
+                    type: string
+                    format: email
+                    example: "juan@example.com"
+                  identificacion:
+                    type: string
+                    example: "123456789"
+                  estado:
+                    type: string
+                    example: "activo"
+                  fecha_creacion:
+                    type: string
+                    format: date-time
+                    example: "2025-01-01T00:00:00Z"
+                  fecha_modificacion:
+                    type: string
+                    format: date-time
+                    example: "2025-01-02T00:00:00Z"
+                  roles:
+                    type: array
+                    items:
+                      type: string
+                    example: ["Administrador", "Usuario"]
+        "404":
+          description: Usuario no encontrado.
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  message:
+                    type: string
+                    example: "Usuario no encontrado"
+        "500":
+          description: Error interno del servidor.
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  message:
+                    type: string
+                    example: "Error obteniendo el usuario."
+
+    patch:
+      summary: Actualizar un usuario existente
+      description: Permite actualizar información básica y roles de un usuario.
+      security:
+        - bearerAuth: []
+      parameters:
+        - name: id
+          in: path
+          required: true
+          description: ID del usuario a actualizar.
+          schema:
+            type: integer
+      requestBody:
+        description: Objeto JSON con los campos a actualizar. Los campos son opcionales y se actualizarán sólo si se envían.
+        required: true
+        content:
+          application/json:
+            schema:
+              type: object
+              properties:
+                nombre:
+                  type: string
+                  example: "Juan Perez Actualizado"
+                username:
+                  type: string
+                  example: "juanp_actualizado"
+                email:
+                  type: string
+                  format: email
+                  example: "juan_actualizado@example.com"
+                identificacion:
+                  type: string
+                  example: "987654321"
+                estado:
+                  type: string
+                  example: "inactivo"
+                roles:
+                  type: array
+                  items:
+                    type: integer
+                  example: [1, 3]
+      responses:
+        "200":
+          description: Usuario actualizado correctamente.
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  message:
+                    type: string
+                    example: "Usuario actualizado correctamente"
+        "404":
+          description: Usuario no encontrado.
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  message:
+                    type: string
+                    example: "Usuario no encontrado"
+        "500":
+          description: Error actualizando el usuario.
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  message:
+                    type: string
+                    example: "Error actualizando el usuario"
+
+components:
+  securitySchemes:
+    bearerAuth:
+      type: http
+      scheme: bearer
+      bearerFormat: JWT

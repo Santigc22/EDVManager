@@ -2,8 +2,10 @@ const express = require('express');
 const bcrypt = require("bcrypt");
 const router = express.Router();
 const pool = require('../config/db');
+const verificarToken = require("../security/authMiddleware");
+const verificarPermiso = require("../security/permisosMiddleware");
 
-router.post("/", async (req, res) => {
+router.post("/", verificarToken, verificarPermiso("crear_usuarios"), async (req, res) => {
     try {
         const { nombre, username, contrasenia, email, identificacion, roles } = req.body;
 
@@ -35,7 +37,7 @@ router.post("/", async (req, res) => {
     }
 });
 
-router.patch("/:id", async (req, res) => {
+router.patch("/:id", verificarToken, verificarPermiso("modificar_usuarios"), async (req, res) => {
     const { id } = req.params;
     const { nombre, username, email, identificacion, estado, roles } = req.body;
 
@@ -96,7 +98,7 @@ router.patch("/:id", async (req, res) => {
     }
 });
 
-router.get("/", async (req, res) => {
+router.get("/", verificarToken, verificarPermiso("ver_usuarios"), async (req, res) => {
     try {
         const resultadosPorPagina = parseInt(req.query.resultados_por_pagina) || 10;
         const pagina = parseInt(req.query.pagina) || 1;
@@ -170,7 +172,7 @@ router.get("/", async (req, res) => {
     }
 });
 
-router.get("/:id", async (req, res) => {
+router.get("/:id", verificarToken, verificarPermiso("ver_usuarios"), async (req, res) => {
     const { id } = req.params;
 
     try {

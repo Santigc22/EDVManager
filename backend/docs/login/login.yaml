@@ -1,0 +1,90 @@
+openapi: 3.0.0
+info:
+  title: API de Login
+  description: API para la autenticación de usuarios y generación de un token JWT.
+  version: 1.0.0
+servers:
+  - url: http://localhost:3000
+    description: Servidor local
+paths:
+  /login:
+    post:
+      summary: Autenticar usuario
+      description: Valida las credenciales del usuario y, si son correctas, retorna un token JWT junto con la información del usuario, roles y permisos.
+      requestBody:
+        description: Objeto JSON con las credenciales del usuario.
+        required: true
+        content:
+          application/json:
+            schema:
+              type: object
+              required:
+                - username
+                - contrasenia
+              properties:
+                username:
+                  type: string
+                  example: "juanp"
+                contrasenia:
+                  type: string
+                  example: "contraseñaSegura123"
+      responses:
+        "200":
+          description: Login exitoso. Se retorna el token y la información del usuario.
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  message:
+                    type: string
+                    example: "Login exitoso"
+                  token:
+                    type: string
+                    example: "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9..."
+                  usuario:
+                    type: object
+                    properties:
+                      id:
+                        type: integer
+                        example: 1
+                      nombre:
+                        type: string
+                        example: "Juan Perez"
+                      username:
+                        type: string
+                        example: "juanp"
+                      email:
+                        type: string
+                        format: email
+                        example: "juan@example.com"
+                      roles:
+                        type: array
+                        items:
+                          type: string
+                        example: ["Administrador", "Usuario"]
+                      permisos:
+                        type: array
+                        items:
+                          type: string
+                        example: ["crear_usuarios", "eliminar_usuarios"]
+        "401":
+          description: Credenciales incorrectas.
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  message:
+                    type: string
+                    example: "Usuario o contraseña incorrectos"
+        "500":
+          description: Error interno del servidor durante el proceso de autenticación.
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  message:
+                    type: string
+                    example: "Error al iniciar sesión"
