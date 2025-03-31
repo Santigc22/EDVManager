@@ -1,0 +1,67 @@
+.header {
+    background-color: #05874b;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: 10px 20px;
+    color: white;
+  }
+  
+  .logo {
+    height: 50px;
+  }
+  
+  .nav {
+    display: flex;
+    align-items: center;
+    gap: 20px;
+  }
+  
+  .button {
+    background: none;
+    border: none;
+    color: white;
+    font-size: 16px;
+    cursor: pointer;
+    padding: 10px;
+    transition: 0.3s;
+  }
+  
+  .button:hover {
+    background: rgba(255, 255, 255, 0.2);
+    border-radius: 5px;
+  }
+  
+  .userMenu {
+    position: relative;
+  }
+  
+  .userIcon {
+    font-size: 30px;
+    cursor: pointer;
+  }
+  
+  .dropdownMenu {
+    position: absolute;
+    right: 0;
+    top: 40px;
+    background: white;
+    color: black;
+    list-style: none;
+    padding: 10px 0;
+    border-radius: 5px;
+    box-shadow: 0px 4px 6px rgba(0, 0, 0, 0.2);
+  }
+  
+  .dropdownMenu li {
+    padding: 10px 20px;
+    cursor: pointer;
+  }
+  
+  .dropdownMenu li:hover {
+    background: #f0f0f0;
+  }
+  
+  .content {
+    padding: 20px;
+  }

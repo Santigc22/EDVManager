@@ -7,12 +7,34 @@ export default function LoginPage() {
   const [username, setUsername] = useState("");
   const [password, setPassword] = useState("");
   const [showInfo, setShowInfo] = useState(false);
+  const [error, setError] = useState("");
   const router = useRouter();
 
-  const handleSubmit = (e) => {
+  const handleLogin = async (e) => {
     e.preventDefault();
-    console.log("Usuario:", username, "Password:", password);
-    router.push("/dashboard");
+    setError("");
+
+    try {
+      const response = await fetch("http://localhost:5000/login", {
+        method: "POST",
+        headers: {
+          "Content-Type": "application/json",
+        },
+        body: JSON.stringify({ username, contrasenia: password }),
+      });
+
+      const data = await response.json();
+
+      if (!response.ok) {
+        throw new Error(data.message || "Error en la autenticación");
+      }
+
+      localStorage.setItem("token", data.token);
+
+      router.push("/dashboard");
+    } catch (err) {
+      setError(err.message);
+    }
   };
 
   return (
@@ -25,7 +47,7 @@ export default function LoginPage() {
         <h2 className="mb-2">Bienvenido a EDV Manager</h2>
         <p style={{ fontSize: "14px" }}>Para continuar, inicie sesión con su cuenta.</p>
         
-        <form onSubmit={handleSubmit}>
+        <form onSubmit={handleLogin}>
           <div className="mb-3 text-start">
             <label className="form-label">Nombre de usuario</label>
             <input
