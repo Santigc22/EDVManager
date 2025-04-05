@@ -64,7 +64,7 @@ export default function Dashboard() {
           </nav>
         </header>
   
-        <div className={styles.content}>
+        <div className="main-content">
           <h1>Bienvenido(a), {user.username}</h1>
         </div>
         <div style={{ display: "flex" }}>
