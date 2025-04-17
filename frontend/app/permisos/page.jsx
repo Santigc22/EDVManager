@@ -1,5 +1,7 @@
 "use client";
 import { useEffect, useState } from "react";
+import { useRouter } from "next/navigation";
+import { jwtDecode } from "jwt-decode";
 import Sidebar from "../components/Sidebar";
 import Header from "../components/header";
 import styles from "./permisos.module.css"
@@ -8,12 +10,31 @@ const PermisosPage = () => {
   const [permisos, setPermisos] = useState([]);
   const [loading, setLoading] = useState(true);
   const [error, setError] = useState(null);
+  const router = useRouter();
 
   useEffect(() => {
+    const token = localStorage.getItem("token");
+
+    if (!token) {
+      router.push("/login");
+      return;
+    }
+
+    try {
+      const decoded = jwtDecode(token);
+
+      if (!decoded.permisos || !decoded.permisos.includes("ver_permisos")) {
+        router.push("/login");
+        return;
+      }
+    } catch (err) {
+      console.error("Token inválido:", err);
+      router.push("/login");
+      return;
+    }
+
     const fetchPermisos = async () => {
       try {
-        const token = localStorage.getItem("token");
-
         const response = await fetch("http://localhost:5000/permisos", {
           headers: {
             Authorization: `Bearer ${token}`,
@@ -35,7 +56,7 @@ const PermisosPage = () => {
     };
 
     fetchPermisos();
-  }, []);
+  }, [router]);
 
   return (
     <>
