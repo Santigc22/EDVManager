@@ -2,12 +2,31 @@
     display: flex;
   }
   
-  /* 2. main area: 
-       - margin‐left = sidebar width (80px) 
-       - margin‐top  = header height (80px) */
 .permisosMainContent {
     flex: 1;
-    margin-left: 80px;  /* match .sidebar width */
-    margin-top: 80px;   /* match header height */
+    margin-left: 80px;
+    margin-top: 80px;
     padding: 20px;
+  }
+  
+  .permisosMainContent {
+    flex: 1;
+    padding: 20px;
+  }
+  
+  .permisosTable {
+    width: 100%;
+    border-collapse: collapse;
+  }
+  
+  .permisosTable th,
+  .permisosTable td {
+    border: 1px solid #ccc;
+    padding: 10px;
+    text-align: left;
+  }
+  
+  .permisosTable th {
+    background-color: #05874b;
+    align-items: center;
   }
