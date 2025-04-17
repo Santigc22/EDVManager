@@ -47,6 +47,6 @@ body {
 .content {
   flex: 1;
   padding: 20px;
-  margin-left: 250px; /* Ajusta según el ancho de tu sidebar */
-  margin-top: 60px; /* Ajusta según la altura del header */
+  margin-left: 250px;
+  margin-top: 60px;
 }

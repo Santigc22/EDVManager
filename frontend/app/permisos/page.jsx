@@ -1,18 +1,21 @@
 import Sidebar from "../components/Sidebar";
 import Header from "../components/header";
+import styles from "./permisos.module.css"
 
 const PermisosPage = () => {
   return (
-    <div className="layout">
-      <Sidebar />
-      <div className="content">
-        <Header />
-        <div className="main-content">
+    <>
+      <Header />
+
+      <div className={styles.pageWrapper}>
+        <Sidebar />
+
+        <main className={styles.permisosMainContent}>
           <h1>Gestión de Permisos</h1>
           <p>Aquí se mostrarán y gestionarán los permisos.</p>
-        </div>
+        </main>
       </div>
-    </div>
+    </>
   );
 };
 

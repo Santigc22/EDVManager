@@ -7,6 +7,7 @@ import styles from "./dashboard.module.css";
 import { FaUserCircle } from "react-icons/fa";
 import Link from "next/link";
 import Sidebar from "../components/Sidebar";
+import Header from "../components/header";
 
 export default function Dashboard() {
     const [user, setUser] = useState(null);
@@ -45,24 +46,7 @@ export default function Dashboard() {
   
     return (
       <div>
-        <header className={styles.header}>
-          <img src="https://i.ibb.co/tPTQn9TB/Captura-1.png" alt="Logo" className={styles.logo} />
-  
-          <nav className={styles.nav}>
-            <Link href="/dashboard" className={styles.button}>Dashboard</Link>
-            <button className={styles.button}>Ayuda</button>
-  
-            <div className={styles.userMenu}>
-              <FaUserCircle className={styles.userIcon} onClick={() => setMenuOpen(!menuOpen)} />
-              {menuOpen && (
-                <ul className={styles.dropdownMenu}>
-                  <li>Perfil</li>
-                  <li>Cerrar sesión</li>
-                </ul>
-              )}
-            </div>
-          </nav>
-        </header>
+        <Header />
   
         <div className="main-content">
           <h1>Bienvenido(a), {user.username}</h1>

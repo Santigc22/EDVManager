@@ -1,0 +1,13 @@
+.pageWrapper {
+    display: flex;
+  }
+  
+  /* 2. main area: 
+       - margin‐left = sidebar width (80px) 
+       - margin‐top  = header height (80px) */
+.permisosMainContent {
+    flex: 1;
+    margin-left: 80px;  /* match .sidebar width */
+    margin-top: 80px;   /* match header height */
+    padding: 20px;
+  }
