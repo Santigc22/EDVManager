@@ -11,9 +11,40 @@ const UsuariosPage = () => {
   const [usuarios, setUsuarios] = useState([]);
   const [cargando, setCargando] = useState(true);
 
-  useEffect(() => {
-    const token = localStorage.getItem("token");
+  const [filtros, setFiltros] = useState({
+    nombre: "",
+    username: "",
+    email: "",
+    identificacion: "",
+  });
 
+  const token = typeof window !== "undefined" ? localStorage.getItem("token") : null;
+
+  const fetchUsuarios = async () => {
+    if (!token) return;
+
+    const queryParams = new URLSearchParams();
+    Object.entries(filtros).forEach(([key, value]) => {
+      if (value) queryParams.append(key, value);
+    });
+
+    try {
+      const response = await fetch(`http://localhost:5000/usuarios?${queryParams.toString()}`, {
+        headers: {
+          Authorization: `Bearer ${token}`,
+        },
+      });
+
+      const data = await response.json();
+      setUsuarios(data.usuarios || []);
+    } catch (error) {
+      console.error("Error al obtener los usuarios:", error);
+    } finally {
+      setCargando(false);
+    }
+  };
+
+  useEffect(() => {
     if (!token) {
       router.push("/login");
       return;
@@ -26,25 +57,25 @@ const UsuariosPage = () => {
         return;
       }
 
-      fetch("http://localhost:5000/usuarios", {
-        headers: {
-          Authorization: `Bearer ${token}`,
-        },
-      })
-        .then((res) => res.json())
-        .then((data) => {
-          setUsuarios(data.usuarios || []);
-          setCargando(false);
-        })
-        .catch((error) => {
-          console.error("Error al obtener los usuarios:", error);
-          setCargando(false);
-        });
+      fetchUsuarios();
     } catch (error) {
-      console.error("Token inválido:", error);
+      console.error("Error con el token:", error);
       router.push("/login");
     }
-  }, [router]);
+  }, []);
+
+  const handleChange = (e) => {
+    setFiltros({
+      ...filtros,
+      [e.target.name]: e.target.value,
+    });
+  };
+
+  const handleFiltrar = (e) => {
+    e.preventDefault();
+    setCargando(true);
+    fetchUsuarios();
+  };
 
   return (
     <>
@@ -53,6 +84,39 @@ const UsuariosPage = () => {
         <Sidebar />
         <main className={styles.usuariosMainContent}>
           <h1>Gestión de Usuarios</h1>
+
+          {/* Formulario de filtros */}
+          <form className={styles.filtroForm} onSubmit={handleFiltrar}>
+            <input
+              type="text"
+              name="nombre"
+              placeholder="Filtrar por nombre"
+              value={filtros.nombre}
+              onChange={handleChange}
+            />
+            <input
+              type="text"
+              name="username"
+              placeholder="Filtrar por username"
+              value={filtros.username}
+              onChange={handleChange}
+            />
+            <input
+              type="email"
+              name="email"
+              placeholder="Filtrar por email"
+              value={filtros.email}
+              onChange={handleChange}
+            />
+            <input
+              type="text"
+              name="identificacion"
+              placeholder="Filtrar por identificación"
+              value={filtros.identificacion}
+              onChange={handleChange}
+            />
+            <button type="submit">Buscar</button>
+          </form>
 
           {cargando ? (
             <p>Cargando usuarios...</p>

@@ -25,3 +25,29 @@
   .usuariosTable th {
     background-color: #05874b;
   }
+
+  .filtroForm {
+    margin-bottom: 1rem;
+    display: flex;
+    flex-wrap: wrap;
+    gap: 0.5rem;
+  }
+  
+  .filtroForm input {
+    padding: 0.5rem;
+    border: 1px solid #ccc;
+    border-radius: 4px;
+  }
+  
+  .filtroForm button {
+    padding: 0.5rem 1rem;
+    background-color: #ffcc00;
+    border: none;
+    color: white;
+    border-radius: 4px;
+    cursor: pointer;
+  }
+  
+  .filtroForm button:hover {
+    background-color: #cca300;
+  }
