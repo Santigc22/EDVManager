@@ -1,0 +1,32 @@
+.pageWrapper {
+    display: flex;
+  }
+  
+.permisosMainContent {
+    flex: 1;
+    margin-left: 80px;
+    margin-top: 80px;
+    padding: 20px;
+  }
+  
+  .permisosMainContent {
+    flex: 1;
+    padding: 20px;
+  }
+  
+  .permisosTable {
+    width: 100%;
+    border-collapse: collapse;
+  }
+  
+  .permisosTable th,
+  .permisosTable td {
+    border: 1px solid #ccc;
+    padding: 10px;
+    text-align: left;
+  }
+  
+  .permisosTable th {
+    background-color: #05874b;
+    align-items: center;
+  }

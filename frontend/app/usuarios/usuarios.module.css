@@ -1,0 +1,87 @@
+.pageWrapper {
+    display: flex;
+  }
+  
+  .usuariosMainContent {
+    flex: 1;
+    margin-left: 80px;
+    margin-top: 80px;
+    padding: 20px;
+  }
+
+  .usuariosTable {
+    width: 100%;
+    border-collapse: collapse;
+    margin-top: 1rem;
+  }
+  
+  .usuariosTable th,
+  .usuariosTable td {
+    border: 1px solid #ccc;
+    padding: 0.75rem;
+    text-align: left;
+  }
+  
+  .usuariosTable th {
+    background-color: #05874b;
+  }
+
+  .filtroForm {
+    margin-bottom: 1rem;
+    display: flex;
+    flex-wrap: wrap;
+    gap: 0.5rem;
+  }
+  
+  .filtroForm input {
+    padding: 0.5rem;
+    border: 1px solid #ccc;
+    border-radius: 4px;
+  }
+  
+  .filtroForm button {
+    padding: 0.5rem 1rem;
+    background-color: #ffcc00;
+    border: none;
+    color: black;
+    border-radius: 4px;
+    cursor: pointer;
+  }
+  
+  .filtroForm button:hover {
+    background-color: #cca300;
+  }
+
+  .paginacion {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    margin-top: 1rem;
+    gap: 1rem;
+    flex-wrap: wrap;
+  }
+  
+  .paginacion button {
+    padding: 0.4rem 0.8rem;
+    border: none;
+    background-color: #ffcc00;
+    color: black;
+    cursor: pointer;
+    border-radius: 4px;
+    transition: background-color 0.2s ease;
+  }
+  
+  .paginacion button:disabled {
+    background-color: #4d3900;
+    color: white;
+    cursor: not-allowed;
+  }
+  
+  .paginacion select {
+    margin-left: 0.5rem;
+    padding: 0.3rem;
+    border-radius: 4px;
+    border: 1px solid #ccc;
+    background-color: #ffcc00;
+    color: black;
+  }
