@@ -1,0 +1,10 @@
+.pageWrapper {
+    display: flex;
+  }
+  
+  .usuariosMainContent {
+    flex: 1;
+    margin-left: 80px;
+    margin-top: 80px;
+    padding: 20px;
+  }

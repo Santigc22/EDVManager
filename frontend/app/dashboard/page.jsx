@@ -3,15 +3,11 @@
 import { useEffect, useState } from "react";
 import { useRouter } from "next/navigation";
 import { jwtDecode } from "jwt-decode";
-import styles from "./dashboard.module.css";
-import { FaUserCircle } from "react-icons/fa";
-import Link from "next/link";
 import Sidebar from "../components/Sidebar";
 import Header from "../components/header";
 
 export default function Dashboard() {
     const [user, setUser] = useState(null);
-    const [menuOpen, setMenuOpen] = useState(false);
     const router = useRouter();
     const permisosUsuario = ["ver_roles", "ver_usuarios", "ver_permisos"];
   
