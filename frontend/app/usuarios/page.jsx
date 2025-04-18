@@ -2,7 +2,7 @@
 import { useEffect, useState } from "react";
 import { useRouter } from "next/navigation";
 import { jwtDecode } from "jwt-decode";
-import Header from "../components/Header";
+import Header from "../components/header";
 import Sidebar from "../components/Sidebar";
 import styles from "./usuarios.module.css";
 
@@ -18,6 +18,9 @@ const UsuariosPage = () => {
     identificacion: "",
   });
 
+  const [ordenarPor, setOrdenarPor] = useState("");
+  const [orden, setOrden] = useState("");
+
   const token = typeof window !== "undefined" ? localStorage.getItem("token") : null;
 
   const fetchUsuarios = async () => {
@@ -27,6 +30,9 @@ const UsuariosPage = () => {
     Object.entries(filtros).forEach(([key, value]) => {
       if (value) queryParams.append(key, value);
     });
+
+    if (ordenarPor) queryParams.append("ordenar_por", ordenarPor);
+    if (orden) queryParams.append("orden", orden);
 
     try {
       const response = await fetch(`http://localhost:5000/usuarios?${queryParams.toString()}`, {
@@ -77,6 +83,18 @@ const UsuariosPage = () => {
     fetchUsuarios();
   };
 
+  const handleOrdenar = (columna) => {
+    if (ordenarPor !== columna) {
+      setOrdenarPor(columna);
+      setOrden("ASC");
+    } else if (orden === "ASC") {
+      setOrden("DESC");
+    } else if (orden === "DESC") {
+      setOrdenarPor("");
+      setOrden("");
+    }
+  };
+
   return (
     <>
       <Header />
@@ -85,7 +103,6 @@ const UsuariosPage = () => {
         <main className={styles.usuariosMainContent}>
           <h1>Gestión de Usuarios</h1>
 
-          {/* Formulario de filtros */}
           <form className={styles.filtroForm} onSubmit={handleFiltrar}>
             <input
               type="text"
@@ -124,11 +141,21 @@ const UsuariosPage = () => {
             <table className={styles.usuariosTable}>
               <thead>
                 <tr>
-                  <th>Nombre</th>
+                    <th>
+                    Nombre{" "}
+                    <span onClick={() => handleOrdenar("nombre")} style={{ cursor: "pointer" }}>
+                        {ordenarPor === "nombre" ? (orden === "ASC" ? "↑" : orden === "DESC" ? "↓" : "↕") : "↕"}
+                    </span>
+                    </th>
                   <th>Username</th>
                   <th>Email</th>
                   <th>Identificación</th>
-                  <th>Fecha Modificación</th>
+                  <th>
+                    Fecha Modificación{" "}
+                    <span onClick={() => handleOrdenar("fecha_modificacion")} style={{ cursor: "pointer" }}>
+                        {ordenarPor === "fecha_modificacion" ? (orden === "ASC" ? "↑" : orden === "DESC" ? "↓" : "↕") : "↕"}
+                    </span>
+                    </th>
                   <th>Acciones</th>
                 </tr>
               </thead>
