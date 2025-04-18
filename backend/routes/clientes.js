@@ -4,7 +4,7 @@ const pool = require('../config/db');
 const verificarToken = require('../security/authMiddleware');
 const verificarPermiso = require('../security/permisosMiddleware');
 
-router.get('/', verificarToken, verificarPermiso("ver_proveedores"), async (req, res) => {
+router.get('/', verificarToken, verificarPermiso("ver_clientes"), async (req, res) => {
     try {
         const pagina = parseInt(req.query.pagina) || 1;
         const resultadosPorPagina = parseInt(req.query.resultados_por_pagina) || 10;
@@ -26,14 +26,14 @@ router.get('/', verificarToken, verificarPermiso("ver_proveedores"), async (req,
 
         const whereClause = filtros.length > 0 ? `WHERE ${filtros.join(' AND ')}` : '';
 
-        const totalQuery = `SELECT COUNT(*) FROM proveedores ${whereClause}`;
+        const totalQuery = `SELECT COUNT(*) FROM clientes ${whereClause}`;
         const { rows: totalRows } = await pool.query(totalQuery, valores);
-        const totalProveedores = parseInt(totalRows[0].count);
-        const totalPaginas = Math.ceil(totalProveedores / resultadosPorPagina);
+        const totalClientes = parseInt(totalRows[0].count);
+        const totalPaginas = Math.ceil(totalClientes / resultadosPorPagina);
 
         const query = `
             SELECT id, nombre, estado
-            FROM proveedores
+            FROM clientes
             ${whereClause}
             ORDER BY id
             LIMIT $${contador++} OFFSET $${contador}
@@ -45,40 +45,40 @@ router.get('/', verificarToken, verificarPermiso("ver_proveedores"), async (req,
         res.json({
             pagina,
             resultados_por_pagina: resultadosPorPagina,
-            total_resultados: totalProveedores,
+            total_resultados: totalClientes,
             total_paginas: totalPaginas,
-            proveedores: rows
+            clientes: rows
         });
     } catch (error) {
-        console.error('Error al obtener proveedores:', error);
-        res.status(500).json({ message: 'Error al obtener proveedores' });
+        console.error('Error al obtener clientes:', error);
+        res.status(500).json({ message: 'Error al obtener clientes' });
     }
 });
 
-router.post('/', verificarToken, verificarPermiso("registrar_proveedores"), async (req, res) => {
+router.post('/', verificarToken, verificarPermiso("registrar_clientes"), async (req, res) => {
     try {
         const { nombre } = req.body;
 
         if (!nombre) {
-            return res.status(400).json({ message: 'El nombre del proveedor es requerido' });
+            return res.status(400).json({ message: 'El nombre del cliente es requerido' });
         }
 
-        const query = 'INSERT INTO proveedores (nombre, estado) VALUES ($1, $2) RETURNING *';
+        const query = 'INSERT INTO clientes (nombre, estado) VALUES ($1, $2) RETURNING *';
         const values = [nombre, true];
 
         const { rows } = await pool.query(query, values);
 
         res.status(201).json({
-            message: 'Proveedor registrado exitosamente',
-            proveedor: rows[0]
+            message: 'Cliente registrado exitosamente',
+            cliente: rows[0]
         });
     } catch (error) {
-        console.error('Error al registrar proveedor:', error);
-        res.status(500).json({ message: 'Error al registrar proveedor' });
+        console.error('Error al registrar cliente:', error);
+        res.status(500).json({ message: 'Error al registrar cliente' });
     }
 });
 
-router.patch('/:id', verificarToken, verificarPermiso("modificar_proveedores"), async (req, res) => {
+router.patch('/:id', verificarToken, verificarPermiso("modificar_clientes"), async (req, res) => {
     const { id } = req.params;
     const { nombre, estado } = req.body;
 
@@ -102,21 +102,21 @@ router.patch('/:id', verificarToken, verificarPermiso("modificar_proveedores"), 
         }
 
         valores.push(id);
-        const query = `UPDATE proveedores SET ${campos.join(', ')} WHERE id = $${contador} RETURNING *`;
+        const query = `UPDATE clientes SET ${campos.join(', ')} WHERE id = $${contador} RETURNING *`;
 
         const { rowCount, rows } = await pool.query(query, valores);
 
         if (rowCount === 0) {
-            return res.status(404).json({ message: "Proveedor no encontrado" });
+            return res.status(404).json({ message: "Cliente no encontrado" });
         }
 
         res.json({
-            message: "Proveedor actualizado exitosamente",
-            proveedor: rows[0]
+            message: "Cliente actualizado exitosamente",
+            cliente: rows[0]
         });
     } catch (error) {
-        console.error("Error al actualizar proveedor:", error);
-        res.status(500).json({ message: "Error al actualizar proveedor" });
+        console.error("Error al actualizar Cliente:", error);
+        res.status(500).json({ message: "Error al actualizar Cliente" });
     }
 });
 

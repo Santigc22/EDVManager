@@ -6,6 +6,7 @@ const rolesRoutes = require("./routes/roles");
 const usuariosRoutes = require("./routes/usuarios");
 const loginRoutes = require("./routes/login");
 const proveedoresRoutes = require("./routes/proveedores");
+const clientesRoutes = require("./routes/clientes");
 
 const app = express();
 const PORT = process.env.PORT || 3000;
@@ -26,6 +27,8 @@ app.use("/roles", rolesRoutes);
 app.use("/permisos", permisosRoutes);
 
 app.use("/proveedores", proveedoresRoutes);
+
+app.use("/clientes", clientesRoutes);
 
 app.listen(PORT, () => {
     console.log(`🔥 Servidor corriendo`);

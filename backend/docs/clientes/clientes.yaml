@@ -1,8 +1,8 @@
 openapi: 3.0.0
 info:
-  title: API de Proveedores
+  title: API de Clientes
   version: 1.0.0
-  description: Endpoints para listar, registrar y actualizar proveedores. Requiere autenticación JWT y verificación de permisos.
+  description: Endpoints para listar, registrar y actualizar clientes. Requiere autenticación JWT y verificación de permisos.
 
 servers:
   - url: http://localhost:5000
@@ -16,7 +16,7 @@ components:
       bearerFormat: JWT
 
   schemas:
-    Proveedor:
+    Cliente:
       type: object
       properties:
         id:
@@ -24,7 +24,7 @@ components:
           example: 1
         nombre:
           type: string
-          example: "Proveedor ABC"
+          example: "Cliente ABC"
         estado:
           type: boolean
           example: true
@@ -33,10 +33,10 @@ security:
   - bearerAuth: []
 
 paths:
-  /proveedores:
+  /clientes:
     get:
-      summary: Obtener lista de proveedores
-      description: Retorna una lista paginada y filtrada de proveedores. Requiere el permiso `ver_proveedores`.
+      summary: Obtener lista de clientes
+      description: Retorna una lista paginada y filtrada de clientes. Requiere el permiso `ver_clientes`.
       parameters:
         - in: query
           name: pagina
@@ -49,22 +49,22 @@ paths:
           schema:
             type: integer
             example: 10
-          description: Número de proveedores por página.
+          description: Número de clientes por página.
         - in: query
           name: nombre
           schema:
             type: string
             example: ABC
-          description: Filtro por coincidencia parcial del nombre del proveedor (insensible a mayúsculas).
+          description: Filtro por coincidencia parcial del nombre del cliente (insensible a mayúsculas).
         - in: query
           name: estado
           schema:
             type: boolean
             example: true
-          description: Filtrar por estado del proveedor (`true` para activos, `false` para inactivos).
+          description: Filtrar por estado del cliente (`true` para activos, `false` para inactivos).
       responses:
         "200":
-          description: Lista de proveedores obtenida correctamente.
+          description: Lista de clientes obtenida correctamente.
           content:
             application/json:
               schema:
@@ -82,10 +82,10 @@ paths:
                   total_paginas:
                     type: integer
                     example: 3
-                  proveedores:
+                  clientes:
                     type: array
                     items:
-                      $ref: '#/components/schemas/Proveedor'
+                      $ref: '#/components/schemas/Cliente'
         "401":
           description: Token inválido o no enviado.
         "403":
@@ -94,8 +94,8 @@ paths:
           description: Error interno del servidor.
 
     post:
-      summary: Registrar un nuevo proveedor
-      description: Registra un proveedor con su nombre. Requiere el permiso `registrar_proveedores`.
+      summary: Registrar un nuevo cliente
+      description: Registra un Cliente con su nombre. Requiere el permiso `registrar_clientes`.
       requestBody:
         required: true
         content:
@@ -107,10 +107,10 @@ paths:
               properties:
                 nombre:
                   type: string
-                  example: "Proveedor XYZ"
+                  example: "Cliente XYZ"
       responses:
         "201":
-          description: Proveedor registrado exitosamente.
+          description: Cliente registrado exitosamente.
           content:
             application/json:
               schema:
@@ -118,29 +118,29 @@ paths:
                 properties:
                   message:
                     type: string
-                    example: "Proveedor registrado exitosamente"
-                  proveedor:
-                    $ref: '#/components/schemas/Proveedor'
+                    example: "Cliente registrado exitosamente"
+                  cliente:
+                    $ref: '#/components/schemas/Cliente'
         "400":
-          description: El nombre del proveedor es requerido.
+          description: El nombre del cliente es requerido.
         "401":
           description: Token inválido o no enviado.
         "403":
           description: Permiso insuficiente.
         "500":
-          description: Error al registrar proveedor.
+          description: Error al registrar cliente.
 
-  /proveedores/{id}:
+  /clientes/{id}:
     patch:
-      summary: Actualizar proveedor
-      description: Permite actualizar nombre y/o estado de un proveedor. Requiere el permiso `modificar_proveedores`.
+      summary: Actualizar cliente
+      description: Permite actualizar nombre y/o estado de un cliente. Requiere el permiso `modificar_clientes`.
       parameters:
         - in: path
           name: id
           required: true
           schema:
             type: integer
-          description: ID del proveedor a actualizar.
+          description: ID del cliente a actualizar.
       requestBody:
         required: true
         content:
@@ -150,13 +150,13 @@ paths:
               properties:
                 nombre:
                   type: string
-                  example: "Proveedor Actualizado"
+                  example: "Cliente Actualizado"
                 estado:
                   type: boolean
                   example: false
       responses:
         "200":
-          description: Proveedor actualizado exitosamente.
+          description: Cliente actualizado exitosamente.
           content:
             application/json:
               schema:
@@ -164,9 +164,9 @@ paths:
                 properties:
                   message:
                     type: string
-                    example: "Proveedor actualizado exitosamente"
-                  proveedor:
-                    $ref: '#/components/schemas/Proveedor'
+                    example: "Cliente actualizado exitosamente"
+                  cliente:
+                    $ref: '#/components/schemas/Cliente'
         "400":
           description: No se proporcionó ningún campo para actualizar.
         "401":
@@ -174,6 +174,6 @@ paths:
         "403":
           description: Permiso insuficiente.
         "404":
-          description: Proveedor no encontrado.
+          description: cliente no encontrado.
         "500":
-          description: Error al actualizar proveedor.
+          description: Error al actualizar cliente.
