@@ -10,6 +10,9 @@ const UsuariosPage = () => {
   const router = useRouter();
   const [usuarios, setUsuarios] = useState([]);
   const [cargando, setCargando] = useState(true);
+  const [paginaActual, setPaginaActual] = useState(1);
+  const [resultadosPorPagina, setResultadosPorPagina] = useState(10);
+  const [totalPaginas, setTotalPaginas] = useState(1);
 
   const [filtros, setFiltros] = useState({
     nombre: "",
@@ -34,6 +37,9 @@ const UsuariosPage = () => {
     if (ordenarPor) queryParams.append("ordenar_por", ordenarPor);
     if (orden) queryParams.append("orden", orden);
 
+    queryParams.append("pagina", paginaActual);
+    queryParams.append("resultados_por_pagina", resultadosPorPagina);
+
     try {
       const response = await fetch(`http://localhost:5000/usuarios?${queryParams.toString()}`, {
         headers: {
@@ -43,6 +49,7 @@ const UsuariosPage = () => {
 
       const data = await response.json();
       setUsuarios(data.usuarios || []);
+      setTotalPaginas(data.total_paginas);
     } catch (error) {
       console.error("Error al obtener los usuarios:", error);
     } finally {
@@ -70,6 +77,12 @@ const UsuariosPage = () => {
     }
   }, []);
 
+  useEffect(() => {
+    if (token) {
+      fetchUsuarios();
+    }
+  }, [paginaActual, resultadosPorPagina]);
+
   const handleChange = (e) => {
     setFiltros({
       ...filtros,
@@ -92,6 +105,15 @@ const UsuariosPage = () => {
     } else if (orden === "DESC") {
       setOrdenarPor("");
       setOrden("");
+    }
+
+    setPaginaActual(1);
+  };
+
+  const cambiarPagina = (nuevaPagina) => {
+    if (nuevaPagina >= 1 && nuevaPagina <= totalPaginas) {
+      setPaginaActual(nuevaPagina);
+      setCargando(true);
     }
   };
 
@@ -138,6 +160,7 @@ const UsuariosPage = () => {
           {cargando ? (
             <p>Cargando usuarios...</p>
           ) : (
+            <>
             <table className={styles.usuariosTable}>
               <thead>
                 <tr>
@@ -172,7 +195,37 @@ const UsuariosPage = () => {
                 ))}
               </tbody>
             </table>
-          )}
+            
+            <div className={styles.paginacion}>
+            <button onClick={() => cambiarPagina(paginaActual - 1)} disabled={paginaActual === 1}>
+              ← Anterior
+            </button>
+            <span>Página {paginaActual} de {totalPaginas}</span>
+            <button
+              onClick={() => cambiarPagina(paginaActual + 1)}
+              disabled={paginaActual === totalPaginas}
+            >
+              Siguiente →
+            </button>
+
+            <label style={{ marginLeft: "1rem" }}>
+              Resultados por página:
+              <select
+                value={resultadosPorPagina}
+                onChange={(e) => {
+                  setResultadosPorPagina(parseInt(e.target.value));
+                  setPaginaActual(1);
+                }}
+              >
+                <option value={5}>5</option>
+                <option value={10}>10</option>
+                <option value={20}>20</option>
+                <option value={25}>25</option>
+              </select>
+            </label>
+          </div>
+        </>
+      )}
         </main>
       </div>
     </>
