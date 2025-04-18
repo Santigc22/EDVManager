@@ -8,6 +8,7 @@ const loginRoutes = require("./routes/login");
 const proveedoresRoutes = require("./routes/proveedores");
 const clientesRoutes = require("./routes/clientes");
 const bodegasRoutes = require("./routes/bodegas");
+const unidadesMedidaRoutes = require("./routes/unidadesMedida");
 
 const app = express();
 const PORT = process.env.PORT || 3000;
@@ -32,6 +33,8 @@ app.use("/proveedores", proveedoresRoutes);
 app.use("/clientes", clientesRoutes);
 
 app.use("/bodegas", bodegasRoutes);
+
+app.use("/unidadesMedida", unidadesMedidaRoutes);
 
 app.listen(PORT, () => {
     console.log(`🔥 Servidor corriendo`);
