@@ -9,6 +9,7 @@ const proveedoresRoutes = require("./routes/proveedores");
 const clientesRoutes = require("./routes/clientes");
 const bodegasRoutes = require("./routes/bodegas");
 const unidadesMedidaRoutes = require("./routes/unidadesMedida");
+const materialesRoutes = require("./routes/materiales");
 
 const app = express();
 const PORT = process.env.PORT || 3000;
@@ -35,6 +36,8 @@ app.use("/clientes", clientesRoutes);
 app.use("/bodegas", bodegasRoutes);
 
 app.use("/unidadesMedida", unidadesMedidaRoutes);
+
+app.use("/materiales", materialesRoutes);
 
 app.listen(PORT, () => {
     console.log(`🔥 Servidor corriendo`);
