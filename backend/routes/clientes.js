@@ -1,0 +1,123 @@
+const express = require('express');
+const router = express.Router();
+const pool = require('../config/db');
+const verificarToken = require('../security/authMiddleware');
+const verificarPermiso = require('../security/permisosMiddleware');
+
+router.get('/', verificarToken, verificarPermiso("ver_clientes"), async (req, res) => {
+    try {
+        const pagina = parseInt(req.query.pagina) || 1;
+        const resultadosPorPagina = parseInt(req.query.resultados_por_pagina) || 10;
+        const offset = (pagina - 1) * resultadosPorPagina;
+
+        const filtros = [];
+        const valores = [];
+        let contador = 1;
+
+        if (req.query.nombre) {
+            filtros.push(`LOWER(nombre) LIKE LOWER($${contador++})`);
+            valores.push(`%${req.query.nombre}%`);
+        }
+
+        if (req.query.estado !== undefined) {
+            filtros.push(`estado = $${contador++}`);
+            valores.push(req.query.estado === 'true');
+        }
+
+        const whereClause = filtros.length > 0 ? `WHERE ${filtros.join(' AND ')}` : '';
+
+        const totalQuery = `SELECT COUNT(*) FROM clientes ${whereClause}`;
+        const { rows: totalRows } = await pool.query(totalQuery, valores);
+        const totalClientes = parseInt(totalRows[0].count);
+        const totalPaginas = Math.ceil(totalClientes / resultadosPorPagina);
+
+        const query = `
+            SELECT id, nombre, estado
+            FROM clientes
+            ${whereClause}
+            ORDER BY id
+            LIMIT $${contador++} OFFSET $${contador}
+        `;
+        valores.push(resultadosPorPagina, offset);
+
+        const { rows } = await pool.query(query, valores);
+
+        res.json({
+            pagina,
+            resultados_por_pagina: resultadosPorPagina,
+            total_resultados: totalClientes,
+            total_paginas: totalPaginas,
+            clientes: rows
+        });
+    } catch (error) {
+        console.error('Error al obtener clientes:', error);
+        res.status(500).json({ message: 'Error al obtener clientes' });
+    }
+});
+
+router.post('/', verificarToken, verificarPermiso("registrar_clientes"), async (req, res) => {
+    try {
+        const { nombre } = req.body;
+
+        if (!nombre) {
+            return res.status(400).json({ message: 'El nombre del cliente es requerido' });
+        }
+
+        const query = 'INSERT INTO clientes (nombre, estado) VALUES ($1, $2) RETURNING *';
+        const values = [nombre, true];
+
+        const { rows } = await pool.query(query, values);
+
+        res.status(201).json({
+            message: 'Cliente registrado exitosamente',
+            cliente: rows[0]
+        });
+    } catch (error) {
+        console.error('Error al registrar cliente:', error);
+        res.status(500).json({ message: 'Error al registrar cliente' });
+    }
+});
+
+router.patch('/:id', verificarToken, verificarPermiso("modificar_clientes"), async (req, res) => {
+    const { id } = req.params;
+    const { nombre, estado } = req.body;
+
+    if (nombre === undefined && estado === undefined) {
+        return res.status(400).json({ message: "Debe proporcionar al menos un campo para actualizar (nombre o estado)." });
+    }
+
+    try {
+        const campos = [];
+        const valores = [];
+        let contador = 1;
+
+        if (nombre !== undefined) {
+            campos.push(`nombre = $${contador++}`);
+            valores.push(nombre);
+        }
+
+        if (estado !== undefined) {
+            campos.push(`estado = $${contador++}`);
+            valores.push(estado);
+        }
+
+        valores.push(id);
+        const query = `UPDATE clientes SET ${campos.join(', ')} WHERE id = $${contador} RETURNING *`;
+
+        const { rowCount, rows } = await pool.query(query, valores);
+
+        if (rowCount === 0) {
+            return res.status(404).json({ message: "Cliente no encontrado" });
+        }
+
+        res.json({
+            message: "Cliente actualizado exitosamente",
+            cliente: rows[0]
+        });
+    } catch (error) {
+        console.error("Error al actualizar Cliente:", error);
+        res.status(500).json({ message: "Error al actualizar Cliente" });
+    }
+});
+
+module.exports = router;

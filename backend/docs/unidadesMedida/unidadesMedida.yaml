@@ -1,0 +1,168 @@
+openapi: 3.0.3
+info:
+  title: APIs de Unidades de Medida
+  version: 1.0.0
+  description: APIs para gestionar unidades de medida (nombre y abreviatura)
+
+servers:
+  - url: http://localhost:5000
+
+paths:
+  /unidadesMedida:
+    post:
+      summary: Registrar una nueva unidad de medida
+      description: Crea una nueva unidad de medida. Requiere autenticación y permiso `registrar_unidades_medida`.
+      tags:
+        - Unidades de Medida
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              type: object
+              required:
+                - nombre
+                - abreviatura
+              properties:
+                nombre:
+                  type: string
+                  example: Kilogramo
+                abreviatura:
+                  type: string
+                  example: kg
+      responses:
+        '201':
+          description: Unidad de medida registrada exitosamente
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  message:
+                    type: string
+                    example: Unidad de medida registrada exitosamente
+                  unidad_medida:
+                    $ref: '#/components/schemas/UnidadMedida'
+        '400':
+          description: Datos faltantes en el cuerpo de la solicitud
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  message:
+                    type: string
+                    example: Nombre y abreviatura son obligatorios
+        '409':
+          description: La abreviatura ya está registrada
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  message:
+                    type: string
+                    example: La abreviatura ya está registrada
+        '500':
+          description: Error interno al registrar unidad de medida
+
+    get:
+      summary: Obtener todas las unidades de medida
+      description: Devuelve una lista de todas las unidades de medida. Requiere autenticación y permiso `ver_unidades_medida`.
+      tags:
+        - Unidades de Medida
+      responses:
+        '200':
+          description: Lista de unidades de medida obtenida correctamente
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  unidades_medida:
+                    type: array
+                    items:
+                      $ref: '#/components/schemas/UnidadMedida'
+        '500':
+          description: Error interno al obtener unidades de medida
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  message:
+                    type: string
+                    example: Error al obtener unidades de medida
+
+  /unidadesMedida/{id}:
+    patch:
+      summary: Actualizar una unidad de medida
+      description: Actualiza una unidad de medida existente. Requiere autenticación y permiso `modificar_unidades_medida`.
+      tags:
+        - Unidades de Medida
+      parameters:
+        - in: path
+          name: id
+          required: true
+          schema:
+            type: integer
+          description: ID de la unidad de medida a actualizar
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              type: object
+              properties:
+                nombre:
+                  type: string
+                  example: Gramo
+                abreviatura:
+                  type: string
+                  example: g
+      responses:
+        '200':
+          description: Unidad de medida actualizada correctamente
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  message:
+                    type: string
+                    example: Unidad de medida actualizada correctamente
+        '400':
+          description: Campos inválidos o abreviatura ya registrada
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  message:
+                    type: string
+                    example: Ya existe una unidad de medida con esa abreviatura
+        '500':
+          description: Error interno al actualizar unidad de medida
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  message:
+                    type: string
+                    example: Error al actualizar unidad de medida
+
+components:
+  schemas:
+    UnidadMedida:
+      type: object
+      properties:
+        id:
+          type: integer
+          example: 1
+        nombre:
+          type: string
+          example: Litro
+        abreviatura:
+          type: string
+          example: L
