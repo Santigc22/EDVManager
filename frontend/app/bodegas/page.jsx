@@ -6,6 +6,9 @@ import { useEffect, useState } from "react";
 import { useRouter } from "next/navigation";
 import { jwtDecode } from "jwt-decode";
 import { FaPlusCircle, FaExchangeAlt, FaRegEdit, FaSearch } from "react-icons/fa";
+import Swal from "sweetalert2";
+import withReactContent from "sweetalert2-react-content";
+
 
 const BodegasPage = () => {
     const router = useRouter();
@@ -18,27 +21,10 @@ const BodegasPage = () => {
     const [resultadosPorPagina, setResultadosPorPagina] = useState(10);
     const [totalPaginas, setTotalPaginas] = useState(1);
     const [permisosUsuario, setPermisosUsuario] = useState([]);
-  
-    useEffect(() => {
-      const token = localStorage.getItem("token");
-      if (!token) {
-        router.push("/login");
-        return;
-      }
-      let decoded;
-      try {
-        decoded = jwtDecode(token);
-        setPermisosUsuario(decoded.permisos || []);
-        if (!decoded.permisos?.includes("ver_bodegas")) {
-          router.push("/login");
-          return;
-        }
-      } catch {
-        router.push("/login");
-        return;
-      }
-  
-      const fetchBodegas = async () => {
+    const MySwal = withReactContent(Swal);
+
+    const fetchBodegas = async () => {
+        const token = localStorage.getItem("token");
         setLoading(true);
         try {
           const params = new URLSearchParams();
@@ -65,12 +51,102 @@ const BodegasPage = () => {
         }
       };
   
+    useEffect(() => {
+      const token = localStorage.getItem("token");
+      if (!token) {
+        router.push("/login");
+        return;
+      }
+      let decoded;
+      try {
+        decoded = jwtDecode(token);
+        setPermisosUsuario(decoded.permisos || []);
+        if (!decoded.permisos?.includes("ver_bodegas")) {
+          router.push("/login");
+          return;
+        }
+      } catch {
+        router.push("/login");
+        return;
+      }
+  
       fetchBodegas();
     }, [pagina, resultadosPorPagina, nombreFiltro, router]);
   
     const handleBuscar = () => {
       setPagina(1);
     };
+
+    const handleChangeEstado = async (bodega) => {
+        const token = localStorage.getItem("token");
+
+        const result = await MySwal.fire({
+          title: '¿Desea cambiar el estado de esta bodega?',
+          icon: 'question',
+          showCancelButton: true,
+          confirmButtonText: 'Aceptar',
+          cancelButtonText: 'Cancelar',
+          reverseButtons: true,
+          customClass: {
+            popup: 'mi-alerta',
+            title: 'mi-titulo',
+            icon: 'mi-icono',
+            confirmButton: 'mi-boton-aceptar',
+            cancelButton: 'mi-boton-cancelar'
+          }
+        });
+      
+        if (result.isDismissed || result.isDenied || result.isCanceled) {
+          MySwal.fire({
+            title: 'Cancelado',
+            icon: 'info',
+            timer: 1500,
+            showConfirmButton: false,
+            customClass: {
+                popup: 'mi-alerta',
+                icon: 'mi-icono-cancelar'
+              }
+          });
+          return;
+        }
+      
+        try {
+          const nuevoEstado = !bodega.estado;
+      
+          const response = await fetch(`http://localhost:5000/bodegas/${bodega.id}`, {
+            method: "PATCH",
+            headers: {
+              "Content-Type": "application/json",
+              Authorization: `Bearer ${token}`,
+            },
+            body: JSON.stringify({ estado: nuevoEstado }),
+          });
+      
+          const data = await response.json();
+      
+          if (!response.ok) {
+            throw new Error(data.message || "Error al cambiar estado");
+          }
+      
+          MySwal.fire({
+            title: 'Estado actualizado',
+            icon: 'success',
+            timer: 1500,
+            showConfirmButton: false,
+          });
+
+          setBuscar(true);
+          fetchBodegas();
+      
+        } catch (error) {
+          console.error("Error:", error.message);
+          MySwal.fire({
+            title: 'Error',
+            text: error.message,
+            icon: 'error',
+          });
+        }
+      };
   
     return (
         <>
@@ -155,6 +231,7 @@ const BodegasPage = () => {
                                     <button
                                         className={styles.actionStateBtn}
                                         title="Cambiar estado"
+                                        onClick={() => handleChangeEstado(b)}
                                     >
                                 <FaExchangeAlt />
                                 </button>

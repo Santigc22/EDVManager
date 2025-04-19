@@ -57,3 +57,51 @@ main {
   margin-left: 250px;
   margin-top: 60px;
 }
+
+.mi-alerta {
+  background-color: #046a3a;
+  color: white;
+  border-radius: 12px;
+  padding: 20px;
+  border-color: #032f1b;
+  border-width: 2px;
+}
+
+.mi-titulo {
+  color: white;
+  font-size: 20px;
+}
+
+.mi-icono {
+  color: white !important;
+}
+
+.mi-icono-cancelar {
+  color: #ffcc00 !important;
+}
+
+.mi-boton-aceptar {
+  background-color: #ffcc00 !important;
+  color: black !important;
+  border-radius: 8px !important;
+  padding: 8px 20px !important;
+  border: none;
+  font-weight: bold;
+}
+
+.mi-boton-aceptar:hover {
+  background-color: #cca300 !important;
+}
+
+.mi-boton-cancelar {
+  background-color: #dc3545 !important;
+  color: black !important;
+  border-radius: 8px !important;
+  padding: 8px 20px !important;
+  border: none;
+  font-weight: bold;
+}
+
+.mi-boton-cancelar:hover {
+  background-color: #b52a37 !important;
+}
