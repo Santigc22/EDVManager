@@ -178,13 +178,41 @@
     color: white;
     font-size: 18px;
     padding: 4px;
-    transition: transform 1s ease-in-out;
-    animation: colorRotation 2s infinite, spin 2s infinite
+    transition: transform 1s ease-in-out, color 0.2s ease;
+    animation: colorRotation 2s infinite, spin 2s infinite;
+    animation-play-state: paused;
+    transform: rotate(0deg);
+  }
+
+  @keyframes colorRotation {
+    0% {
+      color: white;
+    }
+    50% {
+      color: #e63946;
+    }
+    100% {
+      color: #1d9acc;
+    }
+  }
+
+  @keyframes spin {
+    0% {
+      transform: rotate(0deg);
+    }
+    100% {
+      transform: rotate(360deg);
+    }
   }
   
   .actionStateBtn:hover {
-    color: #1d9acc;
-    transform: rotate(360deg);
+    animation-play-state: running;
+  }
+
+  .actionStateBtn:not(:hover) {
+    animation-play-state: paused;
+    color: white;
+    transform: rotate(0deg);
   }
 
   .actiondetailseBtn {

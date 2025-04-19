@@ -1,0 +1,87 @@
+.pageContainer {
+    display: flex;
+    min-height: 100vh;
+  }
+  
+  .mainContent {
+    flex: 1;
+    margin-top: 70px; 
+    margin-left: 80px; 
+    padding: 20px;
+  }
+  
+  .titulo {
+    margin-bottom: 1.5rem;
+    font-size: 24px;
+  }
+  
+  .form {
+    max-width: 400px;
+    display: flex;
+    flex-direction: column;
+    gap: 1rem;
+  }
+  
+  .formGroup {
+    display: flex;
+    flex-direction: column;
+  }
+  
+  .formGroup label {
+    margin-bottom: 0.5rem;
+    font-weight: 500;
+  }
+  
+  .formGroup input {
+    padding: 8px;
+    border: 1px solid #ccc;
+    border-radius: 4px;
+    font-size: 14px;
+  }
+  
+  .botonSubmit {
+    background-color: #ffcc00;
+    color: black;
+    border: none;
+    padding: 10px 16px;
+    border-radius: 4px;
+    font-size: 16px;
+    cursor: pointer;
+    transition: background-color 0.2s;
+  }
+  
+  .botonSubmit:disabled {
+    background-color: #e6b800;
+    cursor: not-allowed;
+  }
+  
+  .botonSubmit:hover:not(:disabled) {
+    background-color: #cca300;
+  }
+  
+  .errorMessage {
+    color: red;
+    font-size: 14px;
+  }
+  
+  .successMessage {
+    color: green;
+    font-size: 14px;
+  }
+
+  .form {
+    width: 100%;
+  }
+  
+  .form .form-control {
+    background-color: white;
+    color: black;
+  }
+  
+  .form .form-label {
+    color: white;
+  }
+  
+  .alert {
+    text-align: left;
+  }
