@@ -135,4 +135,24 @@ router.patch('/:id', verificarToken, verificarPermiso("modificar_bodegas"), asyn
     }
 });
 
+router.get('/:id', verificarToken, verificarPermiso('ver_bodegas'), async (req, res) => {
+    const { id } = req.params;
+
+    try {
+        const { rows } = await pool.query(
+            'SELECT id, nombre, direccion, estado FROM bodegas WHERE id = $1',
+            [id]
+        );
+
+        if (rows.length === 0) {
+            return res.status(404).json({ message: 'Bodega no encontrada' });
+        }
+
+        res.json(rows[0]);
+    } catch (error) {
+        console.error('Error al obtener la bodega:', error);
+        res.status(500).json({ message: 'Error al obtener la bodega' });
+    }
+});
+
 module.exports = router;
