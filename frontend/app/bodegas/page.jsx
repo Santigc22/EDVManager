@@ -238,6 +238,7 @@ const BodegasPage = () => {
                                 <button
                                     className={styles.actionEditBtn}
                                     title="Editar información"
+                                    onClick={() => router.push(`/bodegas/editar/${b.id}`)}
                                 >
                                 <FaRegEdit />
                                 </button>
