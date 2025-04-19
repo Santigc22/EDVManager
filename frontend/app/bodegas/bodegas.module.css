@@ -12,7 +12,8 @@
   .mainContent {
     margin-left: 80px; 
     padding: 20px;
-    width: 100%;
+    width: calc(100% - 80px);
+    overflow-x: auto;
   }
   
   .title {
@@ -26,9 +27,8 @@
   }
   
   .bodegasTable {
-    width: 93%;
-    border-collapse: collapse;
-    margin-top: 1rem;
+    width: 100%;
+    max-width: 100%;
   }
   
   .bodegasTable th,
@@ -44,8 +44,8 @@
   }
   
   .bodegasTable tbody tr:hover {
-    background-color: #fafafa;
-    color: black
+    background-color: rgb(34, 31, 31);
+    color: white
   }
 
   .filtroContainer {
@@ -82,6 +82,7 @@
     display: flex;
     align-items: center;
     gap: 10px;
+    justify-content: flex-start;
   }
   
   .selectorResultados select {
@@ -113,4 +114,103 @@
   .paginacion button:disabled {
     background-color: #4d3900;
     cursor: not-allowed;
+  }
+
+  .topActions {
+    display: flex;
+    justify-content: flex-end;
+    margin-bottom: 1rem;
+  }
+
+  .actionsContainer {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    margin-bottom: 1rem;
+    gap: 20px;
+  }
+  
+  .actionsContainer > div {
+    flex: 1;
+  }
+
+  .botonCrear {
+    background-color: #ffcc00;
+    color: black;
+    border: none;
+    padding: 8px 16px;
+    border-radius: 4px;
+    font-size: 14px;
+    cursor: pointer;
+    display: inline-flex;
+    align-items: center;
+    gap: 4px;
+  }
+
+  .botonCrear:hover {
+    background-color: #cca300;
+  }
+
+.actionButtons {
+    display: flex;
+    gap: 8px;
+    align-items: center;
+  }
+  
+  .actionBtn {
+    background: none;
+    border: none;
+    cursor: pointer;
+    color: white;
+    font-size: 18px;
+    padding: 4px;
+    transition: color 0.2s;
+  }
+  
+  .actionBtn:hover {
+    color: #046a3a;
+  }
+
+  .actionStateBtn {
+    background: none;
+    border: none;
+    cursor: pointer;
+    color: white;
+    font-size: 18px;
+    padding: 4px;
+    transition: transform 1s ease-in-out;
+    animation: colorRotation 2s infinite, spin 2s infinite
+  }
+  
+  .actionStateBtn:hover {
+    color: #1d9acc;
+    transform: rotate(360deg);
+  }
+
+  .actiondetailseBtn {
+    background: none;
+    border: none;
+    cursor: pointer;
+    color: white;
+    font-size: 18px;
+    padding: 4px;
+    transition: color 0.2s;
+  }
+  
+  .actionDetailsBtn:hover {
+    color: #1d9acc;
+  }
+
+  .actionEditBtn {
+    background: none;
+    border: none;
+    cursor: pointer;
+    color: white;
+    font-size: 18px;
+    padding: 4px;
+    transition: color 0.2s;
+  }
+  
+  .actionEditBtn:hover {
+    color: #cca300;
   }

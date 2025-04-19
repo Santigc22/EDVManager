@@ -5,6 +5,7 @@ import styles from "./bodegas.module.css";
 import { useEffect, useState } from "react";
 import { useRouter } from "next/navigation";
 import { jwtDecode } from "jwt-decode";
+import { FaPlusCircle, FaExchangeAlt, FaRegEdit, FaSearch } from "react-icons/fa";
 
 const BodegasPage = () => {
     const router = useRouter();
@@ -16,6 +17,7 @@ const BodegasPage = () => {
     const [pagina, setPagina] = useState(1);
     const [resultadosPorPagina, setResultadosPorPagina] = useState(10);
     const [totalPaginas, setTotalPaginas] = useState(1);
+    const [permisosUsuario, setPermisosUsuario] = useState([]);
   
     useEffect(() => {
       const token = localStorage.getItem("token");
@@ -26,6 +28,7 @@ const BodegasPage = () => {
       let decoded;
       try {
         decoded = jwtDecode(token);
+        setPermisosUsuario(decoded.permisos || []);
         if (!decoded.permisos?.includes("ver_bodegas")) {
           router.push("/login");
           return;
@@ -70,39 +73,53 @@ const BodegasPage = () => {
     };
   
     return (
-      <>
+        <>
         <Header />
         <div className={styles.pageContainer}>
           <Sidebar />
           <main className={styles.mainContent}>
             <h1>Gestión de bodegas</h1>
-  
+
             <div className={styles.filtroContainer}>
-              <input
-                type="text"
-                placeholder="Buscar por nombre..."
-                value={nombreFiltro}
-                onChange={(e) => setNombreFiltro(e.target.value)}
-                className={styles.inputFiltro}
-              />
-              <button onClick={handleBuscar} className={styles.botonBuscar}>
-                Buscar
-              </button>
-            </div>
+                <input
+                  type="text"
+                  placeholder="Buscar por nombre..."
+                  value={nombreFiltro}
+                  onChange={(e) => setNombreFiltro(e.target.value)}
+                  className={styles.inputFiltro}
+                />
+              </div>
   
-            <div className={styles.selectorResultados}>
-              <label>Resultados por página:</label>
-              <select
-                value={resultadosPorPagina}
-                onChange={(e) => {
-                  setResultadosPorPagina(Number(e.target.value));
-                  setPagina(1);
-                }}
-              >
-                {[5, 10, 20, 25].map((op) => (
-                  <option key={op} value={op}>{op}</option>
-                ))}
-              </select>
+            <div className={styles.actionsContainer}>
+  
+              <div className={styles.selectorResultados}>
+                <label>Resultados por página:</label>
+                <select
+                  value={resultadosPorPagina}
+                  onChange={(e) => {
+                    setResultadosPorPagina(Number(e.target.value));
+                    setPagina(1);
+                  }}
+                >
+                  {[5, 10, 20, 25].map((op) => (
+                    <option key={op} value={op}>
+                      {op}
+                    </option>
+                  ))}
+                </select>
+              </div>
+
+              {permisosUsuario.includes("registrar_bodegas") && (
+                <div className={styles.topActions}>
+                  <button
+                    className={styles.botonCrear}
+                    onClick={() => router.push("/bodegas/crear")}
+                  >
+                    <FaPlusCircle style={{ marginRight: "6px" }} />
+                    Crear bodega
+                  </button>
+                </div>
+              )}
             </div>
   
             {loading ? (
@@ -128,7 +145,38 @@ const BodegasPage = () => {
                         <td>{b.nombre}</td>
                         <td>{b.direccion}</td>
                         <td>{b.estado ? "Activo" : "Inactivo"}</td>
-                        <td>—</td>
+                        <td>
+                        {!(permisosUsuario.includes("modificar_bodegas") || permisosUsuario.includes("ver_detalle_bodegas")) ? (
+                         "—"
+                        ) : (
+                         <div className={styles.actionButtons}>
+                            {permisosUsuario.includes("modificar_bodegas") && (
+                                <>
+                                    <button
+                                        className={styles.actionStateBtn}
+                                        title="Cambiar estado"
+                                    >
+                                <FaExchangeAlt />
+                                </button>
+                                <button
+                                    className={styles.actionEditBtn}
+                                    title="Editar información"
+                                >
+                                <FaRegEdit />
+                                </button>
+                                </>
+                           )}
+                            {permisosUsuario.includes("ver_detalle_bodegas") && (
+                             <button
+                               className={styles.actionDetailsBtn}
+                               title="Ver detalles"
+                             >
+                               <FaSearch />
+                             </button>
+                            )}
+                         </div>
+                       )}
+                     </td>
                       </tr>
                     ))}
                   </tbody>
@@ -136,16 +184,18 @@ const BodegasPage = () => {
   
                 <div className={styles.paginacion}>
                   <button
-                    onClick={() => setPagina((prev) => Math.max(prev - 1, 1))}
+                    onClick={() => setPagina((p) => Math.max(p - 1, 1))}
                     disabled={pagina === 1}
                   >
                     Anterior
                   </button>
-  
-                  <span>Página {pagina} de {totalPaginas}</span>
-  
+                  <span>
+                    Página {pagina} de {totalPaginas}
+                  </span>
                   <button
-                    onClick={() => setPagina((prev) => Math.min(prev + 1, totalPaginas))}
+                    onClick={() =>
+                      setPagina((p) => Math.min(p + 1, totalPaginas))
+                    }
                     disabled={pagina === totalPaginas}
                   >
                     Siguiente
