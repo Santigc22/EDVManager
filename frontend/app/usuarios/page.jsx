@@ -3,7 +3,7 @@ import { useEffect, useState } from "react";
 import { useRouter } from "next/navigation";
 import { jwtDecode } from "jwt-decode";
 import Header from "../components/header";
-import Sidebar from "../components/Sidebar";
+import Sidebar from "../components/sidebar";
 import styles from "./usuarios.module.css";
 
 const UsuariosPage = () => {

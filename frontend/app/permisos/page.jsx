@@ -2,7 +2,7 @@
 import { useEffect, useState } from "react";
 import { useRouter } from "next/navigation";
 import { jwtDecode } from "jwt-decode";
-import Sidebar from "../components/Sidebar";
+import Sidebar from "../components/sidebar";
 import Header from "../components/header";
 import styles from "./permisos.module.css"
 
