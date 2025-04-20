@@ -1,0 +1,107 @@
+.pageContainer {
+    display: flex;
+    min-height: 100vh;
+  }
+  
+  .mainContent {
+    flex: 1; 
+    margin-left: 80px; 
+    padding: 20px;
+    overflow-x: auto;
+  }
+  
+  .title {
+    margin-bottom: 1.5rem;
+    font-size: 28px;
+    font-weight: bold;
+    color: white;
+  }
+  
+  .filtroForm {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 0.5rem;
+    margin-bottom: 1rem;
+  }
+  
+  .filtroForm input {
+    padding: 0.5rem;
+    border: 1px solid #ccc;
+    border-radius: 4px;
+    flex: 1;
+    min-width: 120px;
+  }
+  
+  .filtroForm button {
+    padding: 0.5rem 1rem;
+    background-color: #ffcc00;
+    color: black;
+    border: none;
+    border-radius: 4px;
+    cursor: pointer;
+  }
+  
+  .selectorResultados {
+    display: flex;
+    align-items: center;
+    gap: 0.5rem;
+    margin-bottom: 1rem;
+  }
+  
+  .selectorResultados select {
+    padding: 0.4rem;
+    border-radius: 4px;
+    border: 1px solid #ccc;
+    background-color: #ffcc00;
+    color: black;
+  }
+  
+  .materialesTable {
+    width: 100%;
+    border-collapse: collapse;
+    margin-bottom: 1rem;
+  }
+  
+  .materialesTable th,
+  .materialesTable td {
+    border: 1px solid #ccc;
+    padding: 0.75rem;
+    text-align: left;
+  }
+  
+  .materialesTable th {
+    background-color: #05874b;
+  }
+  
+  .paginacion {
+    display: flex;
+    align-items: center;
+    gap: 1rem;
+    justify-content: center;
+  }
+  
+  .paginacion button {
+    padding: 0.4rem 0.8rem;
+    border: none;
+    background-color: #ffcc00;
+    color: black;
+    border-radius: 4px;
+    cursor: pointer;
+  }
+  .paginacion button:hover {
+    padding: 0.4rem 0.8rem;
+    border: none;
+    background-color: #cca300;
+    color: white;
+  }
+  
+  .paginacion button:disabled {
+    background-color: #4d3900;
+    cursor: not-allowed;
+    color: white;
+  }
+  
+  .error {
+    color: red;
+    margin-bottom: 1rem;
+  }
