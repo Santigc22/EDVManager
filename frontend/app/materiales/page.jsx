@@ -5,6 +5,7 @@ import styles from "./materiales.module.css";
 import { jwtDecode } from "jwt-decode";
 import { useState, useEffect } from "react";
 import { useRouter } from "next/navigation";
+import { FaPlusCircle, FaExchangeAlt, FaRegEdit, FaSearch } from "react-icons/fa";
 
 export default function MaterialesPage() {
     const router = useRouter();
@@ -113,7 +114,8 @@ export default function MaterialesPage() {
               />
               <button type="submit">Buscar</button>
             </form>
-  
+
+            <div className={styles.actionsContainer}>
             <div className={styles.selectorResultados}>
               <label>Resultados por página:</label>
               <select
@@ -124,6 +126,20 @@ export default function MaterialesPage() {
                   <option key={n} value={n}>{n}</option>
                 ))}
               </select>
+            </div>
+
+            {permisosUsuario.includes("registrar_materiales") && (
+              <div className={styles.topActions}>
+                <button
+                  className={styles.botonCrear}
+                  onClick={() => router.push("/materiales/crear")}
+                >
+                  <FaPlusCircle style={{ marginRight: "6px" }} />
+                  Registrar material
+                </button>
+              </div>
+            )}
+
             </div>
   
             {loading ? (
