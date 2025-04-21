@@ -5,7 +5,7 @@ import styles from "./materiales.module.css";
 import { jwtDecode } from "jwt-decode";
 import { useState, useEffect } from "react";
 import { useRouter } from "next/navigation";
-import { FaPlusCircle, FaExchangeAlt, FaRegEdit, FaSearch } from "react-icons/fa";
+import { FaPlusCircle, FaRegEdit, FaSearch } from "react-icons/fa";
 
 export default function MaterialesPage() {
     const router = useRouter();
@@ -167,7 +167,32 @@ export default function MaterialesPage() {
                         <td>{m.abreviatura}</td>
                         <td>{m.cantidad}</td>
                         <td>{m.unidad_medida_abreviatura}</td>
-                        <td>--</td>
+                        <td>
+                        {!(permisosUsuario.includes("modificar_materiales") ||
+                           permisosUsuario.includes("ver_detalles_materiales")) ? (
+                          "--"
+                        ) : (
+                          <div className={styles.actionButtons}>
+                            {permisosUsuario.includes("modificar_materiales") && (
+                              <button
+                                className={styles.actionBtn}
+                                title="Editar material"
+                                onClick={() => router.push(`/materiales/editar/${m.id}`)}
+                              >
+                                <FaRegEdit />
+                              </button>
+                            )}
+                            {permisosUsuario.includes("ver_detalle_materiales") && (
+                              <button
+                                className={styles.actionBtn}
+                                title="Ver detalles"
+                              >
+                                <FaSearch />
+                              </button>
+                            )}
+                          </div>
+                        )}
+                        </td>
                       </tr>
                     ))}
                   </tbody>
