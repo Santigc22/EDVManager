@@ -31,7 +31,7 @@
   align-items: center;
   gap: 10px;
   color: white;
-  font-size: 18px;
+  font-size: 14px;
   cursor: pointer;
   padding: 10px;
   width: 100%;
@@ -70,4 +70,25 @@
 .sidebar.open .menuItem {
   justify-content: flex-start;
   padding-left: 15px; 
+}
+
+.linkContent {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  text-decoration: none;
+  color: #ffcc00;
+  font-size: 16px;
+}
+
+.linkContent:hover {
+  text-decoration: none;
+}
+
+.linkContent svg {
+  font-size: 16px;
+}
+
+.linkText {
+  font-size: 16px;
 }

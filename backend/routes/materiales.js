@@ -176,4 +176,30 @@ router.patch('/:id', verificarToken, verificarPermiso('modificar_materiales'), a
     }
 });
 
+router.get('/:id', verificarToken, verificarPermiso('ver_materiales'), async (req, res) => {
+    const { id } = req.params;
+
+    try {
+        const query = `
+            SELECT m.id, m.nombre, m.codigo, m.abreviatura, m.cantidad, m.precio,
+                   m.unidad_medida_id,
+                   u.nombre AS unidad_medida_nombre,
+                   u.abreviatura AS unidad_medida_abreviatura
+            FROM materiales m
+            JOIN unidades_medida u ON m.unidad_medida_id = u.id
+            WHERE m.id = $1
+        `;
+        const { rows } = await pool.query(query, [id]);
+
+        if (rows.length === 0) {
+            return res.status(404).json({ message: 'Material no encontrado' });
+        }
+
+        res.json(rows[0]);
+    } catch (error) {
+        console.error('Error al obtener el material:', error);
+        res.status(500).json({ message: 'Error al obtener el material' });
+    }
+});
+
 module.exports = router;

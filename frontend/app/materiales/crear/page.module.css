@@ -1,0 +1,16 @@
+.form {
+    width: 100%;
+  }
+  
+  .form .form-control {
+    background-color: white;
+    color: black;
+  }
+  
+  .form .form-label {
+    color: white;
+  }
+  
+  .alert {
+    text-align: left;
+  }

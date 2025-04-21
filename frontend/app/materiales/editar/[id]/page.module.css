@@ -1,0 +1,18 @@
+.form {
+    width: 100%;
+  }
+  
+  .form .form-control,
+  .form .form-select {
+    background-color: white;
+    color: black;
+  }
+  
+  .form .form-label {
+    color: white;
+  }
+  
+  .alert {
+    text-align: left;
+  }
+  
