@@ -1,0 +1,252 @@
+openapi: 3.0.3
+info:
+  title: API de Órdenes de Compra
+  version: 1.0.0
+  description: API para gestión de órdenes de compra
+
+paths:
+  /:
+    post:
+      summary: Crear una orden de compra
+      tags: [Órdenes]
+      security: [ { bearerAuth: [] } ]
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              type: object
+              required: [cliente_id, materiales]
+              properties:
+                cliente_id:
+                  type: integer
+                detalle:
+                  type: string
+                materiales:
+                  type: array
+                  items:
+                    type: object
+                    required: [material_id, cantidad, precio_unitario]
+                    properties:
+                      material_id:
+                        type: integer
+                      cantidad:
+                        type: number
+                      precio_unitario:
+                        type: number
+      responses:
+        '201':
+          description: Orden creada exitosamente
+          content:
+            application/json:
+              example:
+                message: "Orden de compra registrada exitosamente"
+                orden:
+                  id: 1
+                  cliente_id: 5
+                  fecha_hora: "2025-04-27T14:33:00Z"
+                  estado: "PENDIENTE"
+                  detalle: "Orden urgente"
+                  usuario_id: 2
+        '400':
+          description: Datos inválidos
+          content:
+            application/json:
+              example:
+                message: "Debe proporcionar cliente_id y al menos un material con cantidad y precio_unitario."
+        '500':
+          description: Error interno
+
+    get:
+      summary: Listar órdenes de compra
+      tags: [Órdenes]
+      security: [ { bearerAuth: [] } ]
+      parameters:
+        - name: pagina
+          in: query
+          schema: { type: integer }
+        - name: resultados_por_pagina
+          in: query
+          schema: { type: integer }
+        - name: cliente
+          in: query
+          schema: { type: string }
+        - name: usuario
+          in: query
+          schema: { type: string }
+        - name: fecha
+          in: query
+          schema: { type: string, format: date }
+        - name: estado
+          in: query
+          schema: { type: string }
+      responses:
+        '200':
+          description: Lista paginada de órdenes
+          content:
+            application/json:
+              example:
+                pagina: 1
+                resultados_por_pagina: 10
+                total_resultados: 50
+                total_paginas: 5
+                ordenes:
+                  - id: 1
+                    cliente_id: 3
+                    cliente_nombre: "Cliente XYZ"
+                    fecha_hora: "2025-04-26T12:00:00Z"
+                    estado: "PENDIENTE"
+                    usuario_id: 2
+                    usuario_nombre: "Admin"
+        '500':
+          description: Error interno
+
+  /{id}:
+    get:
+      summary: Obtener detalle de una orden
+      tags: [Órdenes]
+      security: [ { bearerAuth: [] } ]
+      parameters:
+        - name: id
+          in: path
+          required: true
+          schema: { type: integer }
+      responses:
+        '200':
+          description: Detalle completo de la orden
+          content:
+            application/json:
+              example:
+                orden:
+                  id: 1
+                  cliente:
+                    id: 3
+                    nombre: "Cliente XYZ"
+                  creado_por:
+                    id: 2
+                    nombre: "Admin"
+                  fecha_hora: "2025-04-26T12:00:00Z"
+                  estado: "PENDIENTE"
+                  detalle: "Orden de prueba"
+                  fecha_modificación: "2025-04-27T10:00:00Z"
+                  modificado_por:
+                    id: 2
+                    nombre: "Admin"
+                materiales:
+                  - id: 10
+                    nombre: "Tornillo"
+                    cantidad: 100
+                    precio_unitario: 0.5
+                    total_material: 50
+                  - id: 11
+                    nombre: "Tuerca"
+                    cantidad: 50
+                    precio_unitario: 0.3
+                    total_material: 15
+                total_orden: 65
+        '404':
+          description: Orden no encontrada
+        '500':
+          description: Error interno
+
+    put:
+      summary: Modificar una orden existente
+      tags: [Órdenes]
+      security: [ { bearerAuth: [] } ]
+      parameters:
+        - name: id
+          in: path
+          required: true
+          schema: { type: integer }
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              type: object
+              required: [cliente_id, materiales]
+              properties:
+                cliente_id:
+                  type: integer
+                detalle:
+                  type: string
+                materiales:
+                  type: array
+                  items:
+                    type: object
+                    required: [material_id, cantidad, precio_unitario]
+                    properties:
+                      material_id:
+                        type: integer
+                      cantidad:
+                        type: number
+                      precio_unitario:
+                        type: number
+      responses:
+        '200':
+          description: Orden modificada exitosamente
+          content:
+            application/json:
+              example:
+                message: "Orden de compra modificada exitosamente"
+        '400':
+          description: Estado no permite modificación
+        '404':
+          description: Orden no encontrada
+        '500':
+          description: Error interno
+
+  /{id}/validarMateriales:
+    patch:
+      summary: Validar disponibilidad de materiales
+      tags: [Órdenes]
+      security: [ { bearerAuth: [] } ]
+      parameters:
+        - name: id
+          in: path
+          required: true
+          schema: { type: integer }
+      responses:
+        '200':
+          description: Estado de materiales validado
+          content:
+            application/json:
+              example:
+                message: "Estado actualizado a \"MATERIAL COMPLETO\""
+        '400':
+          description: Estado no permite validación
+        '404':
+          description: Orden no encontrada
+        '500':
+          description: Error interno
+
+  /{id}/anular:
+    patch:
+      summary: Anular una orden
+      tags: [Órdenes]
+      security: [ { bearerAuth: [] } ]
+      parameters:
+        - name: id
+          in: path
+          required: true
+          schema: { type: integer }
+      responses:
+        '200':
+          description: Orden anulada exitosamente
+          content:
+            application/json:
+              example:
+                message: "Orden anulada correctamente"
+        '400':
+          description: No se puede anular una orden finalizada
+        '404':
+          description: Orden no encontrada
+        '500':
+          description: Error interno
+
+components:
+  securitySchemes:
+    bearerAuth:
+      type: http
+      scheme: bearer
+      bearerFormat: JWT
