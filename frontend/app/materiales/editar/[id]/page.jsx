@@ -83,7 +83,6 @@ export default function EditarMaterialPage() {
         return;
       }
   
-      // PATCH
       try {
         const res = await fetch(`http://localhost:5000/materiales/${id}`, {
           method: "PATCH",
