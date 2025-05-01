@@ -202,4 +202,6 @@ router.get('/:id', verificarToken, verificarPermiso('ver_materiales'), async (re
     }
 });
 
+// MISING GET DETAIL
+
 module.exports = router;

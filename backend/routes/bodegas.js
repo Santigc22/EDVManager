@@ -155,4 +155,6 @@ router.get('/:id', verificarToken, verificarPermiso('ver_bodegas'), async (req, 
     }
 });
 
+// MISING GET DETAIL
+
 module.exports = router;
