@@ -216,11 +216,8 @@ export default function OrdenesCompraPage() {
                 </thead>
                 <tbody>
                   {ordenes.map((o) => {
-                    const canAnular = [
-                      "PENDIENTE",
-                      "MATERIAL FALTANTE",
-                      "MATERIAL COMPLETO",
-                    ].includes(o.estado);
+                    const estadosEditables = ["PENDIENTE", "MATERIAL FALTANTE", "MATERIAL COMPLETO"];
+                    const canEdit = permisos.includes("modificar_ordenes") && estadosEditables.includes(o.estado);
                     return (
                       <tr key={o.id}>
                         <td>{o.cliente_nombre}</td>
@@ -229,7 +226,8 @@ export default function OrdenesCompraPage() {
                         <td>{o.usuario_nombre}</td>
                         <td>
                           <div className={styles.actionButtons}>
-                            {permisos.includes("modificar_ordenes") && (
+                            {permisos.includes("modificar_ordenes") && 
+                            canEdit && (
                               <button
                                 className={styles.actionBtn}
                                 title="Editar"
@@ -252,7 +250,7 @@ export default function OrdenesCompraPage() {
                               </button>
                             )}
                             {permisos.includes("modificar_ordenes") &&
-                              canAnular && (
+                              canEdit && (
                                 <button
                                   className={styles.actionBtn}
                                   title="Anular"
@@ -262,7 +260,7 @@ export default function OrdenesCompraPage() {
                                 </button>
                               )}
                             {permisos.includes("modificar_ordenes") &&
-                              canAnular && (
+                              canEdit && (
                                 <button
                                   className={styles.actionBtn}
                                   title="Verificar Materiales"

@@ -169,6 +169,7 @@ router.get('/:id', verificarToken, verificarPermiso('ver_ordenes'), async (req, 
           SELECT 
             om.material_id,
             m.nombre         AS material_nombre,
+            m.abreviatura AS material_abreviatura,
             om.cantidad,
             om.precio_unitario,
             (om.cantidad * om.precio_unitario) AS total_material
@@ -207,6 +208,7 @@ router.get('/:id', verificarToken, verificarPermiso('ver_ordenes'), async (req, 
           materiales: items.map(it => ({
             id: it.material_id,
             nombre: it.material_nombre,
+            abreviatura: it.material_abreviatura,
             cantidad: it.cantidad,
             precio_unitario: parseFloat(it.precio_unitario),
             total_material: parseFloat(it.total_material)
