@@ -12,6 +12,7 @@ import {
   FaSearch,
   FaTimesCircle,
   FaCheckCircle,
+  FaPlusCircle
 } from "react-icons/fa";
 
 export default function OrdenesCompraPage() {
@@ -139,7 +140,18 @@ export default function OrdenesCompraPage() {
       <div className={styles.pageContainer}>
         <Sidebar />
         <main className={styles.mainContent}>
-          <h1 className={styles.title}>Gestión de Órdenes de Compra</h1>
+          <div className={styles.titleBar}>
+            <h1 className={styles.title}>Gestión de Órdenes de Compra</h1>
+            {permisos.includes("modificar_ordenes") && (
+              <button
+                className={styles.botonCrear}
+                onClick={() => router.push("/ordenesCompra/crear")}
+              >
+                <FaPlusCircle style={{ marginRight: "6px" }} />
+                Registrar orden
+              </button>
+            )}
+          </div>
 
           <form className={styles.filtroForm} onSubmit={handleBuscar}>
             <input
