@@ -1,6 +1,7 @@
 "use client";
 import { useState, useEffect } from "react";
 import { FaBars, FaUserLock, FaUsers, FaUserShield, FaWarehouse, FaUserTie, FaCube, FaShoppingCart, FaTruck, FaRuler } from "react-icons/fa";
+import { MdShuffle } from "react-icons/md";
 import styles from "./sidebar.module.css";
 import { jwtDecode } from "jwt-decode";
 import Link from "next/link";
@@ -32,8 +33,8 @@ const Sidebar = ({ permisos }) => {
     { id: "ver_materiales", nombre: "Materiales", icono: <FaCube />, route: "/materiales" },
     { id: "ver_proveedores", nombre: "Proveedores", icono: <FaTruck />, route: "/proveedores" },
     { id: "ver_unidades_medida", nombre: "Medidas", icono: <FaRuler />, route: "/unidadesMedida" },
-    { id: "ver_ordenes_compra", nombre: "Ordenes", icono: <FaShoppingCart />, route: "/ordenesCompra" }
-
+    { id: "ver_ordenes", nombre: "Ordenes Compra", icono: <FaShoppingCart />, route: "/ordenesCompra" },
+    { id: "ver_movimientos", nombre: "Movimientos", icono: <MdShuffle />, route: "/movimientos" }
   ];
 
   return (

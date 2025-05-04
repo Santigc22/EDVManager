@@ -1,0 +1,54 @@
+.pageContainer {
+    display: flex;
+    min-height: 100vh;
+  }
+  
+  .mainContent {
+    flex: 1;
+    margin-top: 10px;
+    margin-left: 80px;
+    padding: 20px;
+    overflow-x: auto;
+  }
+  
+  .titulo-detalle-orden {
+    margin-bottom: 1rem;
+  }
+  
+  .infoSection {
+    background: #05874b;
+    padding: 15px;
+    border-radius: 6px;
+    margin-bottom: 2rem;
+  }
+  
+  .infoSection p {
+    margin: 0.5rem 0;
+  }
+  
+  .materialesSection h2 {
+    margin-bottom: 1rem;
+  }
+  
+  .materialesTable {
+    width: 100%;
+    border-collapse: collapse;
+    margin-bottom: 1rem;
+  }
+  
+  .materialesTable th,
+  .materialesTable td {
+    border: 1px solid #ccc;
+    padding: 0.6rem;
+    text-align: left;
+  }
+  
+  .materialesTable th {
+    background-color: #05874b;
+  }
+  
+  .total {
+    text-align: right;
+    font-size: 1.1rem;
+    margin-top: 0.5rem;
+  }
