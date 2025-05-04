@@ -1,0 +1,113 @@
+.pageContainer {
+    display: flex;
+    min-height: 100vh;
+  }
+  
+  .mainContent {
+    flex: 1;
+    margin-top: 10px;
+    margin-left: 80px;
+    padding: 20px;
+    overflow-x: auto;
+  }
+  
+  .title {
+    font-size: 30px;
+    margin-bottom: 1rem;
+  }
+  
+  .filtroForm {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 0.5rem;
+    margin-bottom: 1rem;
+  }
+  
+  .filtroForm input,
+  .filtroForm button {
+    padding: 0.5rem;
+    border: 1px solid #ccc;
+    border-radius: 4px;
+  }
+  
+  .filtroForm button {
+    background-color: #05874b;
+    color: white;
+    border: none;
+    cursor: pointer;
+  }
+  
+  .selectorResultados {
+    display: flex;
+    align-items: center;
+    gap: 0.5rem;
+    margin-bottom: 1rem;
+  }
+  
+  .selectorResultados select {
+    padding: 0.4rem;
+    border-radius: 4px;
+    border: 1px solid #4d3900;
+    color: black;
+    background-color: #ffcc00;
+  }
+  
+  .ordenesTable {
+    width: 100%;
+    border-collapse: collapse;
+    margin-bottom: 1rem;
+  }
+  
+  .ordenesTable th,
+  .ordenesTable td {
+    border: 1px solid #ccc;
+    padding: 0.75rem;
+    text-align: left;
+  }
+  
+  .ordenesTable th {
+    background-color: #05874b;
+  }
+  
+  .paginacion {
+    display: flex;
+    align-items: center;
+    gap: 1rem;
+    justify-content: center;
+  }
+  
+  .paginacion button {
+    padding: 0.4rem 0.8rem;
+    border: none;
+    background-color: #ffcc00;
+    color: white;
+    border-radius: 4px;
+    cursor: pointer;
+  }
+  
+  .paginacion button:disabled {
+    background-color: #4d3900;
+    cursor: not-allowed;
+  }
+  
+  .error {
+    color: red;
+  }
+
+  .actionButtons {
+    display: flex;
+    gap: 0.5rem;
+  }
+  
+  .actionBtn {
+    background: none;
+    border: none;
+    cursor: pointer;
+    font-size: 18px;
+    color: #05874b;
+    transition: color 0.2s;
+  }
+  
+  .actionBtn:hover {
+    color: #046a3a;
+  }
