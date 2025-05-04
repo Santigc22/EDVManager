@@ -13,8 +13,8 @@
   
   .title {
     margin-bottom: 1.5rem;
-    font-size: 24px;
-    color: #333;
+    font-size: 30px;
+    color: white;
   }
   
   .filtroForm {
@@ -52,6 +52,8 @@
     padding: 0.4rem;
     border-radius: 4px;
     border: 1px solid #ccc;
+    background-color: #ffcc00;
+    color: black;
   }
   
   .movimientosTable {
@@ -68,7 +70,7 @@
   }
   
   .movimientosTable th {
-    background-color: #f5f5f5;
+    background-color: #05874b;
   }
   
   .paginacion {
@@ -81,18 +83,60 @@
   .paginacion button {
     padding: 0.4rem 0.8rem;
     border: none;
-    background-color: #05874b;
+    background-color: #ffcc00;
     color: white;
     border-radius: 4px;
     cursor: pointer;
   }
   
   .paginacion button:disabled {
-    background-color: #ccc;
+    background-color: #4d3900;
     cursor: not-allowed;
   }
   
   .error {
     color: red;
+  }
+
+  .registrarWrapper {
+    position: relative;
+    display: inline-block;
+    margin-bottom: 1rem;
+  }
+  
+  .registrarBtn {
+    background-color: #ffcc00;
+    color: black;
+    padding: 0.6rem 1rem;
+    border: none;
+    border-radius: 4px;
+    cursor: pointer;
+  }
+  
+  .menuOpciones {
+    position: absolute;
+    top: 100%;
+    left: 0;
+    background-color: #ffcc00;
+    color: black;
+    border: 1px solid white;
+    box-shadow: 0 2px 5px rgba(0,0,0,0.2);
+    border-radius: 4px;
+    z-index: 10;
+    width: max-content;
+  }
+  
+  .menuOpciones button {
+    display: block;
+    padding: 0.5rem 1rem;
+    width: 100%;
+    text-align: left;
+    background: none;
+    cursor: pointer;
+  }
+  
+  .menuOpciones button:hover {
+    background-color: #4d3900;
+    color: white;
   }
   

@@ -51,6 +51,13 @@ export default function MovimientosPage() {
         setLoading(false);
       }
     };
+
+    const [mostrarMenu, setMostrarMenu] = useState(false);
+
+    const irACrearMovimiento = (tipoRuta) => {
+      setMostrarMenu(false);
+      router.push(`/movimientos/crear/${tipoRuta}`);
+    };
   
     useEffect(() => {
       const token = localStorage.getItem("token");
@@ -85,7 +92,25 @@ export default function MovimientosPage() {
         <div className={styles.pageContainer}>
           <Sidebar />
           <main className={styles.mainContent}>
-            <h1 className={styles.title}>Movimientos</h1>
+            <h1 className={styles.title}>Gestión de Movimientos</h1>
+
+            <div className={styles.registrarWrapper}>
+            <button
+              className={styles.registrarBtn}
+              onClick={() => setMostrarMenu(!mostrarMenu)}
+            >
+              Registrar movimiento ▾
+            </button>
+
+            {mostrarMenu && (
+              <div className={styles.menuOpciones}>
+              <button onClick={() => irACrearMovimiento("entradaC")}>ENTRADA-C</button>
+              <button onClick={() => irACrearMovimiento("traslado")}>TRASLADO</button>
+              <button onClick={() => irACrearMovimiento("venta")}>VENTA</button>
+              <button onClick={() => irACrearMovimiento("salida")}>SALIDA</button>
+            </div>
+            )}
+          </div>
   
             <form className={styles.filtroForm} onSubmit={handleBuscar}>
               <input
