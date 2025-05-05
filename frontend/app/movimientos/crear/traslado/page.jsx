@@ -51,7 +51,7 @@ export default function TrasladoPage() {
     origenTimer.current = setTimeout(async () => {
       const token = localStorage.getItem("token");
       const res = await fetch(
-        `http://localhost:5000/bodegas?nombre=${encodeURIComponent(q)}`,
+        `https://edvmanager.onrender.com/bodegas?nombre=${encodeURIComponent(q)}`,
         { headers: { Authorization: `Bearer ${token}` } }
       );
       const data = await res.json();
@@ -64,7 +64,7 @@ export default function TrasladoPage() {
     destinoTimer.current = setTimeout(async () => {
       const token = localStorage.getItem("token");
       const res = await fetch(
-        `http://localhost:5000/bodegas?nombre=${encodeURIComponent(q)}`,
+        `https://edvmanager.onrender.com/bodegas?nombre=${encodeURIComponent(q)}`,
         { headers: { Authorization: `Bearer ${token}` } }
       );
       const data = await res.json();
@@ -77,7 +77,7 @@ export default function TrasladoPage() {
     matTimer.current[i] = setTimeout(async () => {
       const token = localStorage.getItem("token");
       const res = await fetch(
-        `http://localhost:5000/materiales?abreviatura=${encodeURIComponent(
+        `https://edvmanager.onrender.com/materiales?abreviatura=${encodeURIComponent(
           query
         )}`,
         { headers: { Authorization: `Bearer ${token}` } }
@@ -138,7 +138,7 @@ export default function TrasladoPage() {
     }
 
     try {
-      const res = await fetch("http://localhost:5000/movimientos/traslado", {
+      const res = await fetch("https://edvmanager.onrender.com/movimientos/traslado", {
         method: "POST",
         headers: {
           "Content-Type": "application/json",

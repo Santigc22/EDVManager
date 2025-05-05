@@ -50,7 +50,7 @@ const UsuariosPage = () => {
 
     try {
       const response = await fetch(
-        `http://localhost:5000/usuarios?${queryParams.toString()}`,
+        `https://edvmanager.onrender.com/usuarios?${queryParams.toString()}`,
         {
           headers: {
             Authorization: `Bearer ${token}`,

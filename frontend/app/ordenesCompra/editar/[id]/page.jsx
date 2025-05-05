@@ -38,7 +38,7 @@ export default function EditarOrdenPage() {
     }
 
     const fetchData = async () => {
-      const res = await fetch(`http://localhost:5000/ordenesCompra/${id}`, {
+      const res = await fetch(`https://edvmanager.onrender.com/ordenesCompra/${id}`, {
         headers: { Authorization: `Bearer ${token}` },
       });
       if (!res.ok) return router.push("/ordenesCompra");
@@ -72,7 +72,7 @@ export default function EditarOrdenPage() {
     clientesTimer.current = setTimeout(async () => {
       const token = localStorage.getItem("token");
       const res = await fetch(
-        `http://localhost:5000/clientes?nombre=${encodeURIComponent(q)}`,
+        `https://edvmanager.onrender.com/clientes?nombre=${encodeURIComponent(q)}`,
         {
           headers: { Authorization: `Bearer ${token}` },
         }
@@ -87,7 +87,7 @@ export default function EditarOrdenPage() {
     matTimer.current[i] = setTimeout(async () => {
       const token = localStorage.getItem("token");
       const res = await fetch(
-        `http://localhost:5000/materiales?abreviatura=${encodeURIComponent(q)}`,
+        `https://edvmanager.onrender.com/materiales?abreviatura=${encodeURIComponent(q)}`,
         {
           headers: { Authorization: `Bearer ${token}` },
         }
@@ -136,7 +136,7 @@ export default function EditarOrdenPage() {
     }
 
     try {
-      const res = await fetch(`http://localhost:5000/ordenesCompra/${id}`, {
+      const res = await fetch(`https://edvmanager.onrender.com/ordenesCompra/${id}`, {
         method: "PUT",
         headers: {
           "Content-Type": "application/json",

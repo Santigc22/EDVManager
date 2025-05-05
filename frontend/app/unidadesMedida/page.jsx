@@ -24,7 +24,7 @@ export default function UnidadesMedidaPage() {
         return router.push("/login");
       }
   
-      fetch("http://localhost:5000/unidadesMedida", {
+      fetch("https://edvmanager.onrender.com/unidadesMedida", {
         headers: { Authorization: `Bearer ${token}` },
       })
         .then(res => res.json())

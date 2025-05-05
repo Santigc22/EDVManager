@@ -41,7 +41,7 @@ export default function EditarMaterialPage() {
         return router.push("/login");
       }
   
-      fetch(`http://localhost:5000/materiales/${id}`, {
+      fetch(`https://edvmanager.onrender.com/materiales/${id}`, {
         headers: { Authorization: `Bearer ${token}` },
       })
         .then(res => {
@@ -58,7 +58,7 @@ export default function EditarMaterialPage() {
         .catch(err => setErrorMsg(err.message))
         .finally(() => setLoading(false));
   
-      fetch("http://localhost:5000/unidadesMedida", {
+      fetch("https://edvmanager.onrender.com/unidadesMedida", {
         headers: { Authorization: `Bearer ${token}` },
       })
         .then(res => res.json())
@@ -84,7 +84,7 @@ export default function EditarMaterialPage() {
       }
   
       try {
-        const res = await fetch(`http://localhost:5000/materiales/${id}`, {
+        const res = await fetch(`https://edvmanager.onrender.com/materiales/${id}`, {
           method: "PATCH",
           headers: {
             "Content-Type": "application/json",

@@ -33,7 +33,7 @@ export default function EditarBodegaPage() {
         return router.push("/login");
       }
   
-      fetch(`http://localhost:5000/bodegas/${id}`, {
+      fetch(`https://edvmanager.onrender.com/bodegas/${id}`, {
         headers: { Authorization: `Bearer ${token}` },
       })
         .then((res) => {
@@ -67,7 +67,7 @@ export default function EditarBodegaPage() {
       }
   
       try {
-        const res = await fetch(`http://localhost:5000/bodegas/${id}`, {
+        const res = await fetch(`https://edvmanager.onrender.com/bodegas/${id}`, {
           method: "PATCH",
           headers: {
             "Content-Type": "application/json",

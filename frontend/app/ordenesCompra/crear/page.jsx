@@ -46,7 +46,7 @@ export default function CrearOrdenPage() {
     clientesTimer.current = setTimeout(async () => {
       const token = localStorage.getItem("token");
       const res = await fetch(
-        `http://localhost:5000/clientes?nombre=${encodeURIComponent(q)}`,
+        `https://edvmanager.onrender.com/clientes?nombre=${encodeURIComponent(q)}`,
         { headers: { Authorization: `Bearer ${token}` } }
       );
       const data = await res.json();
@@ -59,7 +59,7 @@ export default function CrearOrdenPage() {
     matTimer.current[i] = setTimeout(async () => {
       const token = localStorage.getItem("token");
       const res = await fetch(
-        `http://localhost:5000/materiales?abreviatura=${encodeURIComponent(
+        `https://edvmanager.onrender.com/materiales?abreviatura=${encodeURIComponent(
           query
         )}`,
         { headers: { Authorization: `Bearer ${token}` } }
@@ -128,7 +128,7 @@ export default function CrearOrdenPage() {
     }
 
     try {
-      const res = await fetch("http://localhost:5000/ordenesCompra", {
+      const res = await fetch("https://edvmanager.onrender.com/ordenesCompra", {
         method: "POST",
         headers: {
           "Content-Type": "application/json",

@@ -29,7 +29,7 @@ export default function DetalleOrdenPage() {
 
     const fetchDetalle = async () => {
       setLoading(true);
-      const res = await fetch(`http://localhost:5000/ordenesCompra/${id}`, {
+      const res = await fetch(`https://edvmanager.onrender.com/ordenesCompra/${id}`, {
         headers: { Authorization: `Bearer ${token}` },
       });
       if (!res.ok) {

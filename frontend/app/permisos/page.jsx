@@ -35,7 +35,7 @@ const PermisosPage = () => {
 
     const fetchPermisos = async () => {
       try {
-        const response = await fetch("http://localhost:5000/permisos", {
+        const response = await fetch("https://edvmanager.onrender.com/permisos", {
           headers: {
             Authorization: `Bearer ${token}`,
           },

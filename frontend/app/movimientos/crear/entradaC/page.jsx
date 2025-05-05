@@ -52,7 +52,7 @@ export default function EntradaCPage() {
     bodegasTimer.current = setTimeout(async () => {
       const token = localStorage.getItem("token");
       const res = await fetch(
-        `http://localhost:5000/bodegas?nombre=${encodeURIComponent(query)}`,
+        `https://edvmanager.onrender.com/bodegas?nombre=${encodeURIComponent(query)}`,
         { headers: { Authorization: `Bearer ${token}` } }
       );
       const data = await res.json();
@@ -65,7 +65,7 @@ export default function EntradaCPage() {
     provTimer.current = setTimeout(async () => {
       const token = localStorage.getItem("token");
       const res = await fetch(
-        `http://localhost:5000/proveedores?nombre=${encodeURIComponent(query)}`,
+        `https://edvmanager.onrender.com/proveedores?nombre=${encodeURIComponent(query)}`,
         { headers: { Authorization: `Bearer ${token}` } }
       );
       const data = await res.json();
@@ -78,7 +78,7 @@ export default function EntradaCPage() {
     matTimer.current[i] = setTimeout(async () => {
       const token = localStorage.getItem("token");
       const res = await fetch(
-        `http://localhost:5000/materiales?abreviatura=${encodeURIComponent(
+        `https://edvmanager.onrender.com/materiales?abreviatura=${encodeURIComponent(
           query
         )}`,
         { headers: { Authorization: `Bearer ${token}` } }
@@ -141,7 +141,7 @@ export default function EntradaCPage() {
     }
 
     try {
-      const res = await fetch("http://localhost:5000/movimientos/entrada-c", {
+      const res = await fetch("https://edvmanager.onrender.com/movimientos/entrada-c", {
         method: "POST",
         headers: {
           "Content-Type": "application/json",

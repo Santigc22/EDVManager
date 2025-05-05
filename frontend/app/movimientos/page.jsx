@@ -36,7 +36,7 @@ export default function MovimientosPage() {
         if (fechaFiltro) params.append("fecha", fechaFiltro);
         if (usuarioFiltro) params.append("usuario", usuarioFiltro);
   
-        const res = await fetch(`http://localhost:5000/movimientos?${params}`, {
+        const res = await fetch(`https://edvmanager.onrender.com/movimientos?${params}`, {
           headers: { Authorization: `Bearer ${token}` },
         });
         if (!res.ok) throw new Error("Error al obtener movimientos");

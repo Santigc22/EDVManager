@@ -25,7 +25,7 @@ export default function ReporteInventarioPage() {
         return router.push("/login");
       }
   
-      fetch("http://localhost:5000/bodegas", {
+      fetch("https://edvmanager.onrender.com/bodegas", {
         headers: { Authorization: `Bearer ${token}` },
       })
         .then(res => res.json())
@@ -49,7 +49,7 @@ export default function ReporteInventarioPage() {
         return;
       }
       const token = localStorage.getItem("token");
-      const res = await fetch("http://localhost:5000/reportes/inventario", {
+      const res = await fetch("https://edvmanager.onrender.com/reportes/inventario", {
         method: "POST",
         headers: {
           "Content-Type": "application/json",

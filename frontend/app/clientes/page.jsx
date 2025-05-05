@@ -39,7 +39,7 @@ export default function ClientesPage() {
     params.append("resultados_por_pagina", resultadosPorPagina);
     if (filtroNombre.trim()) params.append("nombre", filtroNombre.trim());
 
-    const res = await fetch(`http://localhost:5000/clientes?${params}`, {
+    const res = await fetch(`https://edvmanager.onrender.com/clientes?${params}`, {
       headers: { Authorization: `Bearer ${token}` },
     });
     const data = await res.json();

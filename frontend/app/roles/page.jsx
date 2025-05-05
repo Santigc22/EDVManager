@@ -24,7 +24,7 @@ export default function RolesPage() {
       return router.push("/login");
     }
 
-    fetch("http://localhost:5000/roles", {
+    fetch("https://edvmanager.onrender.com/roles", {
       headers: { Authorization: `Bearer ${token}` },
     })
       .then((res) => res.json())
