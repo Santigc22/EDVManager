@@ -5,7 +5,7 @@ info:
   description: Endpoints para listar, registrar y actualizar clientes. Requiere autenticación JWT y verificación de permisos.
 
 servers:
-  - url: http://localhost:5000
+  - url: https://edvmanager.onrender.com
     description: Servidor local
 
 components:

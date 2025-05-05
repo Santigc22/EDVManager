@@ -4,7 +4,7 @@ info:
   description: API para la gestión de roles y sus permisos.
   version: 1.0.0
 servers:
-  - url: http://localhost:5000
+  - url: https://edvmanager.onrender.com
     description: Servidor local
 paths:
   /roles:
