@@ -5,7 +5,7 @@ info:
   description: APIs para gestionar unidades de medida (nombre y abreviatura)
 
 servers:
-  - url: http://localhost:5000
+  - url: https://edvmanager.onrender.com
 
 paths:
   /unidadesMedida:

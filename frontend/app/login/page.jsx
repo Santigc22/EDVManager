@@ -1,7 +1,6 @@
 "use client";
 import { useState } from "react";
 import { useRouter } from "next/navigation";
-import "bootstrap/dist/css/bootstrap.min.css";
 
 export default function LoginPage() {
   const [username, setUsername] = useState("");
@@ -15,7 +14,7 @@ export default function LoginPage() {
     setError("");
 
     try {
-      const response = await fetch("http://localhost:5000/login", {
+      const response = await fetch("https://edvmanager.onrender.com/login", {
         method: "POST",
         headers: {
           "Content-Type": "application/json",

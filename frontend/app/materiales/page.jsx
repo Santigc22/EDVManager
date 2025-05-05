@@ -37,7 +37,7 @@ export default function MaterialesPage() {
         if (codigoFiltro) params.append("codigo", codigoFiltro);
         if (abreviaturaFiltro) params.append("abreviatura", abreviaturaFiltro);
   
-        const res = await fetch(`http://localhost:5000/materiales?${params.toString()}`, {
+        const res = await fetch(`https://edvmanager.onrender.com/materiales?${params.toString()}`, {
           headers: { Authorization: `Bearer ${token}` },
         });
   

@@ -34,7 +34,7 @@ const BodegasPage = () => {
             params.append("nombre", nombreFiltro);
           }
   
-          const res = await fetch(`http://localhost:5000/bodegas?${params.toString()}`, {
+          const res = await fetch(`https://edvmanager.onrender.com/bodegas?${params.toString()}`, {
             headers: { Authorization: `Bearer ${token}` },
           });
   
@@ -113,7 +113,7 @@ const BodegasPage = () => {
         try {
           const nuevoEstado = !bodega.estado;
       
-          const response = await fetch(`http://localhost:5000/bodegas/${bodega.id}`, {
+          const response = await fetch(`https://edvmanager.onrender.com/bodegas/${bodega.id}`, {
             method: "PATCH",
             headers: {
               "Content-Type": "application/json",

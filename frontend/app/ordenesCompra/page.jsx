@@ -47,7 +47,7 @@ export default function OrdenesCompraPage() {
       if (fechaFiltro) params.append("fecha", fechaFiltro);
       if (estadoFiltro) params.append("estado", estadoFiltro);
 
-      const res = await fetch(`http://localhost:5000/ordenesCompra?${params}`, {
+      const res = await fetch(`https://edvmanager.onrender.com/ordenesCompra?${params}`, {
         headers: { Authorization: `Bearer ${token}` },
       });
       if (!res.ok) throw new Error("Error al obtener órdenes");
@@ -107,7 +107,7 @@ export default function OrdenesCompraPage() {
     if (!result.isConfirmed) return;
 
     const token = localStorage.getItem("token");
-    await fetch(`http://localhost:5000/ordenesCompra/${id}/anular`, {
+    await fetch(`https://edvmanager.onrender.com/ordenesCompra/${id}/anular`, {
       method: "PATCH",
       headers: { Authorization: `Bearer ${token}` },
     });
@@ -126,7 +126,7 @@ export default function OrdenesCompraPage() {
     if (!result.isConfirmed) return;
 
     const token = localStorage.getItem("token");
-    await fetch(`http://localhost:5000/ordenesCompra/${id}/validarMateriales`, {
+    await fetch(`https://edvmanager.onrender.com/ordenesCompra/${id}/validarMateriales`, {
       method: "PATCH",
       headers: { Authorization: `Bearer ${token}` },
     });

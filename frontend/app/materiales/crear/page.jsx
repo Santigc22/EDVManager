@@ -39,7 +39,7 @@ export default function CrearMaterialPage() {
         return router.push("/login");
       }
   
-      fetch("http://localhost:5000/unidadesMedida", {
+      fetch("https://edvmanager.onrender.com/unidadesMedida", {
         headers: { Authorization: `Bearer ${token}` },
       })
         .then(res => {
@@ -72,7 +72,7 @@ export default function CrearMaterialPage() {
       }
   
       try {
-        const res = await fetch("http://localhost:5000/materiales", {
+        const res = await fetch("https://edvmanager.onrender.com/materiales", {
           method: "POST",
           headers: {
             "Content-Type": "application/json",

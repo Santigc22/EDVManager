@@ -4,7 +4,7 @@ info:
   description: API para la gestión de usuarios, que incluye creación, actualización, listado y consulta por ID.
   version: 1.0.0
 servers:
-  - url: http://localhost:5000
+  - url: https://edvmanager.onrender.com
     description: Servidor local
 
 paths:

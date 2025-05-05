@@ -4,7 +4,7 @@ info:
   description: API para gestionar los permisos del sistema.
   version: 1.0.0
 servers:
-  - url: http://localhost:5000
+  - url: https://edvmanager.onrender.com
     description: Servidor local
 paths:
   /permisos:

@@ -1,0 +1,66 @@
+openapi: 3.0.3
+info:
+  title: Generar reporte de inventario
+  version: 1.0.0
+  description: API para generar un reporte de inventario en formato Excel a partir de una lista de bodegas.
+
+paths:
+  /inventario:
+    post:
+      summary: Generar reporte de inventario
+      description: Genera y descarga un archivo Excel con el inventario de las bodegas especificadas.
+      tags:
+        - Inventario
+      security:
+        - bearerAuth: []
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              type: object
+              properties:
+                bodegas:
+                  type: array
+                  description: Lista de IDs de bodegas
+                  items:
+                    type: integer
+              required:
+                - bodegas
+      responses:
+        '200':
+          description: Reporte generado exitosamente
+          content:
+            application/vnd.openxmlformats-officedocument.spreadsheetml.sheet:
+              schema:
+                type: string
+                format: binary
+        '400':
+          description: Petición inválida. No se enviaron bodegas o el formato es incorrecto.
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  message:
+                    type: string
+        '401':
+          description: No autorizado. Token inválido o no proporcionado.
+        '403':
+          description: Prohibido. El usuario no tiene permiso para generar reportes.
+        '500':
+          description: Error interno del servidor al generar o enviar el archivo.
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  message:
+                    type: string
+
+components:
+  securitySchemes:
+    bearerAuth:
+      type: http
+      scheme: bearer
+      bearerFormat: JWT

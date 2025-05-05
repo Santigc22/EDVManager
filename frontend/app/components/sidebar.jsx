@@ -81,7 +81,7 @@ const Sidebar = ({ permisos }) => {
     },
     {
       id: "ver_unidades_medida",
-      nombre: "Medidas",
+      nombre: "Unidades Medida",
       icono: <FaRuler />,
       route: "/unidadesMedida",
     },
@@ -89,7 +89,7 @@ const Sidebar = ({ permisos }) => {
       id: "ver_ordenes",
       nombre: "Ordenes Compra",
       icono: <FaShoppingCart />,
-      route: "/ordenesCompra",
+      route: "/ordenesCompra",  
     },
     {
       id: "ver_movimientos",

@@ -37,7 +37,7 @@ export default function VentaPage() {
         return router.push("/login");
       }
   
-      fetch("http://localhost:5000/ordenesCompra?estado=MATERIAL%20COMPLETO", {
+      fetch("https://edvmanager.onrender.com/ordenesCompra?estado=MATERIAL%20COMPLETO", {
         headers: { Authorization: `Bearer ${token}` },
       })
         .then((res) => {
@@ -57,7 +57,7 @@ export default function VentaPage() {
       bodegasTimer.current = setTimeout(async () => {
         const token = localStorage.getItem("token");
         const res = await fetch(
-          `http://localhost:5000/bodegas?nombre=${encodeURIComponent(q)}`,
+          `https://edvmanager.onrender.com/bodegas?nombre=${encodeURIComponent(q)}`,
           { headers: { Authorization: `Bearer ${token}` } }
         );
         const data = await res.json();
@@ -86,7 +86,7 @@ export default function VentaPage() {
       }
   
       try {
-        const res = await fetch("http://localhost:5000/movimientos/venta", {
+        const res = await fetch("https://edvmanager.onrender.com/movimientos/venta", {
           method: "POST",
           headers: {
             "Content-Type": "application/json",
