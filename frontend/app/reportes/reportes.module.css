@@ -1,0 +1,51 @@
+.pageContainer {
+    display: flex;
+    min-height: 100vh;
+  }
+  
+  .mainContent {
+    flex: 1;
+    margin-top: 10px;
+    margin-left: 80px;
+    padding: 20px;
+  }
+  
+  .titulo-reportes {
+    margin-bottom: 1rem;
+  }
+  
+  .group {
+    margin-bottom: 1.5rem;
+  }
+  
+  .bodegasList {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 1rem;
+    max-height: 300px;
+    overflow-y: auto;
+    padding: 10px;
+    border: 1px solid #ccc;
+    border-radius: 4px;
+  }
+  
+  .checkboxLabel {
+    display: flex;
+    align-items: center;
+    gap: 0.25rem;
+  }
+  
+  .generateBtn {
+    background-color: #ffcc00;
+    color: black;
+    border: none;
+    padding: 10px 16px;
+    border-radius: 4px;
+    cursor: pointer;
+    font-size: 1rem;
+  }
+  
+  .generateBtn:hover {
+    background-color: #997616;
+    color: white;
+  }
