@@ -85,3 +85,40 @@
     background-color: #ffcc00;
     color: black;
   }
+
+  .titleBar {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin-bottom: 1rem;
+  }
+
+  .botonCrear {
+    background-color: #ffcc00;
+    color: black;
+    border: none;
+    padding: 6px 12px;
+    border-radius: 4px;
+    cursor: pointer;
+  }
+
+  .botonCrear:hover {
+    background-color: #cca300;
+  }
+
+  .actionButtons {
+    display: flex;
+    gap: 0.5rem;
+  }
+  
+  .actionBtn {
+    background: none;
+    border: none;
+    cursor: pointer;
+    font-size: 18px;
+    color: #05874b;
+  }
+  
+  .actionBtn:hover {
+    color: #046a3a;
+  }
