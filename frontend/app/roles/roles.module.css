@@ -1,0 +1,69 @@
+.pageContainer {
+    display: flex;
+    min-height: 100vh;
+  }
+  
+  .mainContent {
+    flex: 1;
+    margin-top: 10px;
+    margin-left: 80px;
+    padding: 20px;
+  }
+  
+  .titleBar {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin-bottom: 1rem;
+  }
+  
+  .botonCrear {
+    background-color: #ffcc00;
+    color: black;
+    border: none;
+    padding: 6px 12px;
+    border-radius: 4px;
+    font-size: 14px;
+    cursor: pointer;
+    display: inline-flex;
+    align-items: center;
+  }
+  
+  .botonCrear:hover {
+    background-color: #cca300;
+  }
+  
+  .rolesTable {
+    width: 100%;
+    border-collapse: collapse;
+  }
+  
+  .rolesTable th,
+  .rolesTable td {
+    border: 1px solid #ccc;
+    padding: 0.6rem;
+    text-align: left;
+  }
+  
+  .rolesTable th {
+    background-color: #05874b;
+    color: white;
+  }
+  
+  .actionButtons {
+    display: flex;
+    gap: 0.5rem;
+  }
+  
+  .actionBtn {
+    background: none;
+    border: none;
+    cursor: pointer;
+    font-size: 18px;
+    color: #05874b;
+    transition: color 0.2s;
+  }
+  
+  .actionBtn:hover {
+    color: #046a3a;
+  }
