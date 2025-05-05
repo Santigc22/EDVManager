@@ -5,7 +5,7 @@
   
   .mainContent {
     flex: 1;
-    margin-top: 70px;
+    margin-top: 10px;
     margin-left: 80px;
     padding: 20px;
     overflow-x: auto;
@@ -111,6 +111,7 @@
     border: none;
     border-radius: 4px;
     cursor: pointer;
+    z-index: 500;
   }
   
   .menuOpciones {
