@@ -1,0 +1,100 @@
+.pageContainer {
+    display: flex;
+    min-height: 100vh;
+  }
+  
+  .mainContent {
+    flex: 1;
+    margin-top: 10px;
+    margin-left: 80px;
+    padding: 20px;
+  }
+  
+  .titulo-registrar-rol {
+    margin-bottom: 1.5rem;
+  }
+  
+  .form {
+    max-width: 600px;
+    background-color: #05874b;
+    padding: 1.5rem;
+    border-radius: 6px;
+    box-shadow: 0 2px 6px rgba(0,0,0,0.1);
+    color: black;
+    overflow-x: auto;
+  }
+  
+  .group {
+    margin-bottom: 1.25rem;
+    display: flex;
+    flex-direction: column;
+  }
+  
+  .group label {
+    margin-bottom: 0.5rem;
+    font-weight: bold;
+  }
+  
+  .group input {
+    padding: 0.5rem;
+    border: 1px solid #ccc;
+    border-radius: 4px;
+  }
+  
+  .error {
+    color: red;
+    margin-bottom: 1rem;
+  }
+  
+  .modules {
+    display: flex;
+    gap: 0.5rem;
+    flex-wrap: wrap;
+  }
+  
+  .moduleBtn, .moduleBtnActive {
+    padding: 0.5rem 1rem;
+    border: none;
+    cursor: pointer;
+    border-radius: 4px;
+  }
+  
+  .moduleBtn {
+    background-color: #967a0a;
+  }
+  
+  .moduleBtnActive {
+    background-color: #ffcc00;
+    color: white;
+  }
+  
+  .permissions {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 0.75rem;
+    padding: 0.5rem;
+    border: 1px solid #ccc;
+    border-radius: 4px;
+    max-height: 200px;
+    overflow-y: auto;
+  }
+  
+  .checkboxLabel {
+    display: flex;
+    align-items: center;
+    gap: 0.25rem;
+  }
+  
+  .submitBtn {
+    background-color: #ffcc00;
+    color: white;
+    border: none;
+    padding: 0.75rem 1.5rem;
+    border-radius: 4px;
+    cursor: pointer;
+    color: black;
+  }
+  
+  .submitBtn:hover {
+    background-color: #cca300;
+  }
