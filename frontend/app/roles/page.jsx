@@ -6,11 +6,31 @@ import Header from "../components/header";
 import Sidebar from "../components/sidebar";
 import styles from "./roles.module.css";
 import { FaPlusCircle, FaRegEdit, FaTrashAlt } from "react-icons/fa";
+import Swal from "sweetalert2";
+import withReactContent from "sweetalert2-react-content";
 
 export default function RolesPage() {
   const router = useRouter();
   const [roles, setRoles] = useState([]);
   const [loading, setLoading] = useState(true);
+
+  const MySwal = withReactContent(Swal);
+
+  const fetchRoles = async () => {
+    setLoading(true);
+    const token = localStorage.getItem("token");
+    try {
+      const res = await fetch("https://edvmanager.onrender.com/roles", {
+        headers: { Authorization: `Bearer ${token}` },
+      });
+      const data = await res.json();
+      setRoles(data);
+    } catch (err) {
+      console.error("Error al cargar roles:", err);
+    } finally {
+      setLoading(false);
+    }
+  };
 
   useEffect(() => {
     const token = localStorage.getItem("token");
@@ -23,14 +43,44 @@ export default function RolesPage() {
     } catch {
       return router.push("/login");
     }
-
-    fetch("https://edvmanager.onrender.com/roles", {
-      headers: { Authorization: `Bearer ${token}` },
-    })
-      .then((res) => res.json())
-      .then((data) => setRoles(data))
-      .finally(() => setLoading(false));
+    fetchRoles();
   }, [router]);
+
+  const handleDelete = async (id) => {
+    const result = await MySwal.fire({
+      title: "¿Está seguro que desea eliminar este rol?",
+      icon: "warning",
+      showCancelButton: true,
+      confirmButtonText: "Eliminar",
+      cancelButtonText: "Cancelar",
+      reverseButtons: true,
+    });
+
+    if (!result.isConfirmed) return;
+
+    try {
+      const token = localStorage.getItem("token");
+      const res = await fetch(`https://edvmanager.onrender.com/roles/${id}`, {
+        method: "DELETE",
+        headers: { Authorization: `Bearer ${token}` },
+      });
+      if (!res.ok) throw new Error("Error al eliminar");
+      MySwal.fire({
+        title: "Rol eliminado",
+        icon: "success",
+        timer: 1200,
+        showConfirmButton: false,
+      });
+      fetchRoles();
+    } catch (err) {
+      console.error(err);
+      MySwal.fire({
+        title: "Error",
+        text: err.message,
+        icon: "error",
+      });
+    }
+  };
 
   if (loading) {
     return (
@@ -88,8 +138,7 @@ export default function RolesPage() {
                       <button
                         className={styles.actionBtn}
                         title="Eliminar"
-                        onClick={() => {
-                        }}
+                        onClick={() => handleDelete(r.id)}
                       >
                         <FaTrashAlt />
                       </button>
