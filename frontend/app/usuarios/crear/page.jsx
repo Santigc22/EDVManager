@@ -33,7 +33,7 @@ export default function CrearUsuarioPage() {
         return router.push("/login");
       }
   
-      fetch("http://localhost:5000/roles", {
+      fetch("https://edvmanager.onrender.com/roles", {
         headers: { Authorization: `Bearer ${token}` },
       })
         .then((res) => res.json())
@@ -77,7 +77,7 @@ export default function CrearUsuarioPage() {
       }
   
       try {
-        const res = await fetch("http://localhost:5000/usuarios", {
+        const res = await fetch("https://edvmanager.onrender.com/usuarios", {
           method: "POST",
           headers: {
             "Content-Type": "application/json",

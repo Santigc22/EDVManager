@@ -38,13 +38,13 @@ export default function EditarUsuarioPage() {
       }
   
       Promise.all([
-        fetch(`http://localhost:5000/usuarios/${id}`, {
+        fetch(`https://edvmanager.onrender.com/usuarios/${id}`, {
           headers: { Authorization: `Bearer ${token}` },
         }).then((res) => {
           if (!res.ok) throw new Error("No se pudo cargar el usuario");
           return res.json();
         }),
-        fetch("http://localhost:5000/roles", {
+        fetch("https://edvmanager.onrender.com/roles", {
           headers: { Authorization: `Bearer ${token}` },
         }).then((res) => res.json()),
       ])
@@ -99,7 +99,7 @@ export default function EditarUsuarioPage() {
       }
   
       try {
-        const res = await fetch(`http://localhost:5000/usuarios/${id}`, {
+        const res = await fetch(`https://edvmanager.onrender.com/usuarios/${id}`, {
           method: "PATCH",
           headers: {
             "Content-Type": "application/json",

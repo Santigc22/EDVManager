@@ -28,7 +28,7 @@ export default function CrearRolPage() {
         return router.push("/login");
       }
   
-      fetch("http://localhost:5000/permisos", {
+      fetch("https://edvmanager.onrender.com/permisos", {
         headers: { Authorization: `Bearer ${token}` },
       })
         .then((res) => res.json())
@@ -60,7 +60,7 @@ export default function CrearRolPage() {
       }
       const token = localStorage.getItem("token");
       try {
-        const res = await fetch("http://localhost:5000/roles", {
+        const res = await fetch("https://edvmanager.onrender.com/roles", {
           method: "POST",
           headers: {
             "Content-Type": "application/json",
