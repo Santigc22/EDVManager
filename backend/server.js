@@ -14,6 +14,7 @@ const materialesRoutes = require("./routes/materiales");
 const ordenesCompraRoutes = require("./routes/ordenesCompra");
 const movimientosRoutes = require("./routes/movimientos");
 const reportesRoutes = require("./routes/reportes");
+const indicadoresRoutes = require("./routes/indicadores");
 
 const app = express();
 const PORT = process.env.PORT || 3000;
@@ -48,6 +49,8 @@ app.use("/ordenesCompra", ordenesCompraRoutes);
 app.use("/movimientos", movimientosRoutes);
 
 app.use("/reportes", reportesRoutes);
+
+app.use("/indicadores", indicadoresRoutes);
 
 app.listen(PORT, () => {
     console.log(`🔥 Servidor corriendo`);

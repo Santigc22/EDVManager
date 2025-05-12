@@ -58,7 +58,7 @@ export default function CrearUnidadMedidaPage() {
     }
 
     try {
-      const res = await fetch("http://localhost:5000/unidadesMedida", {
+      const res = await fetch("https://edvmanager.onrender.com/unidadesMedida", {
         method: "POST",
         headers: {
           "Content-Type": "application/json",
