@@ -1,0 +1,62 @@
+.pageContainer {
+  display: flex;
+  min-height: 100vh;
+}
+
+.mainContent {
+  flex: 1;
+  margin-top: 10px;
+  margin-left: 80px;
+  padding: 20px;
+}
+
+.titulo-registrar-proveedor {
+  margin-bottom: 1.5rem;
+  color: #fff;
+}
+
+.form {
+  max-width: 500px;
+  background-color: #05874b;
+  padding: 1.5rem;
+  border-radius: 6px;
+  color: black;
+}
+
+.group {
+  margin-bottom: 1.25rem;
+  display: flex;
+  flex-direction: column;
+}
+
+.group label {
+  margin-bottom: 0.5rem;
+  font-weight: bold;
+}
+
+.group input {
+  padding: 0.5rem;
+  border: none;
+  border-radius: 4px;
+  background-color: white;
+}
+
+.error {
+  background: #c00;
+  padding: 0.5rem;
+  border-radius: 4px;
+  margin-bottom: 1rem;
+}
+
+.submitBtn {
+  background-color: #ffc107;
+  color: black;
+  border: none;
+  padding: 0.75rem 1.5rem;
+  border-radius: 4px;
+  cursor: pointer;
+}
+
+.submitBtn:hover {
+  background-color: #cca300;
+}
